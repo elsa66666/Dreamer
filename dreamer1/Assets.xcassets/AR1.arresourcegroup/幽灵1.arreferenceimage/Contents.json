@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "幽灵不屑.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "width" : 0.0545
+  }
+}
