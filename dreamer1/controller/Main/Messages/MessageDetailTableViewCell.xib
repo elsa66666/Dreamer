@@ -20,14 +20,38 @@
                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ZSo-JE-VQf">
                         <rect key="frame" x="10" y="10" width="373" height="122"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="h.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ksE-vR-yFQ">
-                                <rect key="frame" x="0.0" y="0.5" width="40" height="39"/>
-                                <color key="tintColor" name="purple-white"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S9q-ss-69U">
+                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="h.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ksE-vR-yFQ">
+                                        <rect key="frame" x="0.0" y="0.5" width="40" height="39"/>
+                                        <color key="tintColor" name="purple-white"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="X4P-se-KDu"/>
+                                            <constraint firstAttribute="width" constant="40" id="rYO-i4-Fcs"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="seR-fU-VhY">
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                        <connections>
+                                            <action selector="onFriendButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bsA-fb-NDs"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="X4P-se-KDu"/>
-                                    <constraint firstAttribute="width" constant="40" id="rYO-i4-Fcs"/>
+                                    <constraint firstItem="seR-fU-VhY" firstAttribute="top" secondItem="S9q-ss-69U" secondAttribute="top" id="BFh-uS-86y"/>
+                                    <constraint firstItem="seR-fU-VhY" firstAttribute="leading" secondItem="S9q-ss-69U" secondAttribute="leading" id="CcT-Jh-dKa"/>
+                                    <constraint firstAttribute="height" constant="40" id="HKN-Bl-1eX"/>
+                                    <constraint firstAttribute="bottom" secondItem="seR-fU-VhY" secondAttribute="bottom" id="OwM-3T-a5n"/>
+                                    <constraint firstItem="ksE-vR-yFQ" firstAttribute="leading" secondItem="seR-fU-VhY" secondAttribute="trailing" constant="-40" id="cBs-fN-J2g"/>
+                                    <constraint firstAttribute="bottom" secondItem="ksE-vR-yFQ" secondAttribute="bottom" id="iZm-fb-q99"/>
+                                    <constraint firstAttribute="trailing" secondItem="seR-fU-VhY" secondAttribute="trailing" id="kxg-Z4-3am"/>
+                                    <constraint firstAttribute="width" constant="40" id="kyC-U0-eAK"/>
+                                    <constraint firstItem="ksE-vR-yFQ" firstAttribute="top" secondItem="S9q-ss-69U" secondAttribute="top" id="yfc-VU-y0J"/>
+                                    <constraint firstAttribute="trailing" secondItem="ksE-vR-yFQ" secondAttribute="trailing" id="zCc-ar-fhQ"/>
                                 </constraints>
-                            </imageView>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qCS-2r-Uu6">
                                 <rect key="frame" x="60" y="0.0" width="253" height="50"/>
                                 <subviews>
@@ -70,6 +94,7 @@
                 <outlet property="messageBubble" destination="qCS-2r-Uu6" id="Hnr-wH-7oe"/>
                 <outlet property="messageLabel" destination="kxO-It-hBx" id="cvI-8h-oi3"/>
                 <outlet property="youImageView" destination="ksE-vR-yFQ" id="cIT-bA-SOP"/>
+                <outlet property="youView" destination="S9q-ss-69U" id="Nzf-Ry-fiM"/>
             </connections>
             <point key="canvasLocation" x="112" y="76"/>
         </tableViewCell>

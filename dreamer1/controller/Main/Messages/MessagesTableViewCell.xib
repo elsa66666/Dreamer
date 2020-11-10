@@ -30,7 +30,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="wld-6g-nAO"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -56,6 +56,11 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="friendImageView" destination="JQ2-6i-g4J" id="oAG-hu-Vmm"/>
+                <outlet property="friendMessageLabel" destination="2CS-T9-3uZ" id="viB-Q7-rR9"/>
+                <outlet property="friendNameLabel" destination="tzj-x8-YZN" id="mdM-9y-Qkf"/>
+            </connections>
             <point key="canvasLocation" x="147.82608695652175" y="129.57589285714286"/>
         </tableViewCell>
     </objects>

@@ -14,6 +14,7 @@ class MessageDetailTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    @IBOutlet weak var youView: UIView!
     @IBOutlet weak var messageBubble: UIView!
     @IBOutlet weak var meImageView: UIImageView!
     @IBOutlet weak var youImageView: UIImageView!
@@ -24,6 +25,13 @@ class MessageDetailTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
         messageBubble.layer.cornerRadius = messageBubble.frame.size.height / 5
+    }
+    
+    var onButtonTapped : (() -> Void)? = nil
+    @IBAction func onFriendButtonClicked(_ sender: Any) {
+        if let onButtonTapped = self.onButtonTapped {
+         onButtonTapped()
+        } 
     }
     
 }

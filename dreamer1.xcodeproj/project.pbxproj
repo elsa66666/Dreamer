@@ -50,6 +50,7 @@
 		5F56234424E2330500C4B87C /* testGhostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F56234224E2330500C4B87C /* testGhostCell.xib */; };
 		5F56234624E236FC00C4B87C /* TestEntranceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F56234524E236FC00C4B87C /* TestEntranceViewController.swift */; };
 		5F56234824E24D3100C4B87C /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F56234724E24D3100C4B87C /* TestViewController.swift */; };
+		5F589BDE255A4544004DB91B /* FriendHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F589BDD255A4544004DB91B /* FriendHomeViewController.swift */; };
 		5F5F80F92508667000688155 /* StaticModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5F80F82508667000688155 /* StaticModels.swift */; };
 		5F61F28625163E9F0036BCB0 /* SuggestionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61F28425163E9F0036BCB0 /* SuggestionsTableViewCell.swift */; };
 		5F61F28725163E9F0036BCB0 /* SuggestionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F61F28525163E9F0036BCB0 /* SuggestionsTableViewCell.xib */; };
@@ -171,6 +172,7 @@
 		5F56234224E2330500C4B87C /* testGhostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = testGhostCell.xib; sourceTree = "<group>"; };
 		5F56234524E236FC00C4B87C /* TestEntranceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEntranceViewController.swift; sourceTree = "<group>"; };
 		5F56234724E24D3100C4B87C /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		5F589BDD255A4544004DB91B /* FriendHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendHomeViewController.swift; sourceTree = "<group>"; };
 		5F5F80F82508667000688155 /* StaticModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticModels.swift; sourceTree = "<group>"; };
 		5F61F28425163E9F0036BCB0 /* SuggestionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsTableViewCell.swift; sourceTree = "<group>"; };
 		5F61F28525163E9F0036BCB0 /* SuggestionsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionsTableViewCell.xib; sourceTree = "<group>"; };
@@ -423,6 +425,7 @@
 		5FE88015250AFB6000D9CE1E /* Messages */ = {
 			isa = PBXGroup;
 			children = (
+				5F589BDD255A4544004DB91B /* FriendHomeViewController.swift */,
 				5FE88013250AFA5C00D9CE1E /* MessagesViewController.swift */,
 				5FF5E17625497F2600F35278 /* MessageDetailTableViewCell.swift */,
 				5FF5E17725497F2600F35278 /* MessageDetailTableViewCell.xib */,
@@ -809,6 +812,7 @@
 				5F2DD4C024E2FCCD0092EE76 /* TestResultViewController.swift in Sources */,
 				5FA69F25250B10EC00924E1A /* CommentsViewController.swift in Sources */,
 				24EDA989253726CF00A2EF7C /* OssClient.swift in Sources */,
+				5F589BDE255A4544004DB91B /* FriendHomeViewController.swift in Sources */,
 				5F56234624E236FC00C4B87C /* TestEntranceViewController.swift in Sources */,
 				5FF5E17525497DDA00F35278 /* MessageDetailViewController.swift in Sources */,
 				5FFE3F51250A4D4A0015E746 /* DriftBottleEntranceViewController.swift in Sources */,

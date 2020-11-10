@@ -18,6 +18,7 @@ class AllDiariesViewController: UIViewController, UICollectionViewDataSource, UI
     var connectTitle: String?
     let userName = Test.userD.LoginUserName()
     var ghostName = Diary.ghostName
+    var connectDiaryIndex = 0
     var id: [Int]?
     var favor:Int?
     
@@ -29,8 +30,8 @@ class AllDiariesViewController: UIViewController, UICollectionViewDataSource, UI
         trashButton.image = UIImage(systemName: "trash")
         selectedDream.title = connectTitle
         Diary.ghostName = connectTitle!
-               
-        response = Diary.getDB()
+        id = Diary.getpicID(name: ghostName)
+        response = Diary.getAllDiariesByGhostName(ghostName: ghostName)
     }
     
     @IBAction func toHome(_ sender: UIBarButtonItem) {
@@ -44,9 +45,10 @@ class AllDiariesViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        id = Diary.getpicID(name: ghostName)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "screenshot", for: indexPath) as! PhotoCell
-        cell.imageView.image = Diary.LoadImage(id: id![indexPath.row])
+        if (id != []){
+            cell.imageView.image = Diary.LoadImage(id: id![indexPath.row])
+        }
         return cell
     }
     
@@ -62,19 +64,14 @@ class AllDiariesViewController: UIViewController, UICollectionViewDataSource, UI
 
             Diary.ghostName = response![indexPath.row]["ghostName"] as! String
                //Diary.query = Test.userD.getSpeDiary(userName: userName, ghostName: Diary.ghostName, words: words, style: style)
-               Diary.new = false
+            Diary.new = false
+            connectDiaryIndex = indexPath.row
             performSegue(withIdentifier: "toWriteDiary", sender: self)
         }else{
-            let did = (response![indexPath.row]["id"] as? Int)!
-            Test.userD.deleteARow(id: did)
-            reloadView()
+            let diaryid = (response![indexPath.row]["id"] as? Int)!
+            Diary.deleteARow(id: diaryid)
+            response!.remove(at: indexPath.row)
             collectionView.deleteItems(at: [indexPath])
-            let time: TimeInterval = 0.5
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
-                let mainBoard:UIStoryboard! = UIStoryboard(name: "Main", bundle: nil)
-                let VCMain = mainBoard!.instantiateViewController(withIdentifier: "vcMain")
-                UIApplication.shared.windows[0].rootViewController = VCMain
-            }
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -82,17 +79,9 @@ class AllDiariesViewController: UIViewController, UICollectionViewDataSource, UI
             let destination = segue.destination as! DiaryViewController
             destination.ghostName = ghostName
             destination.ghostFavorability = favor!
+            destination.diaryIndex = connectDiaryIndex
         }
     }
-    
-    func reloadView(){
-        id = []
-        response = []
-
-        //response = Test.userD.reload(userName: userName, ghostName: ghostName)
-        id = Test.userD.getpicID(name: ghostName)
-    }
-    
 
     @IBOutlet weak var trashButton: UIBarButtonItem!
     @IBAction func toDelete(_ sender: Any) {

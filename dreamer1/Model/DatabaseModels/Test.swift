@@ -692,11 +692,11 @@ class Diary
         sqlite.closeDB()
     }
    
-    static func getDB() -> [[String : AnyObject]]?
+    static func getAllDiariesByGhostName(ghostName: String) -> [[String : AnyObject]]?
     {
         let sqlite = SQliteManager.sharedInstance
         if !sqlite.openDB() {return []}
-        let queryResult = sqlite.executeQuerySQL(sql: "SELECT * FROM detailDream")
+        let queryResult = sqlite.executeQuerySQL(sql: "SELECT * FROM detailDream WHERE ghostName = '\(ghostName)'")
         return queryResult
     }
     

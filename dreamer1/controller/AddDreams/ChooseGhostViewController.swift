@@ -48,10 +48,7 @@ class ChooseGhostViewController: UIViewController {
             
             let alertController = UIAlertController(title: "提示", message: "成功生成dream!", preferredStyle: .actionSheet)
             let alertAction1 = UIAlertAction(title: "确定", style: .default, handler: {(act: UIAlertAction) in
-                let mainboard:UIStoryboard! = UIStoryboard(name: "Main", bundle: nil)
-                let Vcmain = mainboard!.instantiateViewController(identifier: "vcMain")
-                
-                UIApplication.shared.windows[0].rootViewController = Vcmain
+                self.dismiss(animated: true, completion: nil)
                 //let ranTest = Int(arc4random_uniform(100))
                     
                 Test.userD.AddNewDream(name: userName, ghostName: self.ghostName!, favorablity: 0, ghostStyle: self.ghostStyle, tag: self.tagText, ispublic: self.IsPublic)

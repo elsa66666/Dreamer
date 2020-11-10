@@ -52,7 +52,6 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="rqZ-8A-xCd" secondAttribute="trailing" constant="10" id="0Du-RY-OzC"/>
-                    <constraint firstItem="eTs-Y5-vGz" firstAttribute="top" secondItem="rqZ-8A-xCd" secondAttribute="bottom" constant="10" id="FnZ-pS-PGZ"/>
                     <constraint firstItem="oh4-0W-L6e" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="25" id="HKI-8J-jwk"/>
                     <constraint firstItem="rqZ-8A-xCd" firstAttribute="top" secondItem="2H8-jz-Ntl" secondAttribute="bottom" constant="5" id="Hwb-nV-Cmb"/>
                     <constraint firstAttribute="bottomMargin" secondItem="eTs-Y5-vGz" secondAttribute="bottom" constant="5" id="MIl-hd-fYN"/>
@@ -67,6 +66,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="commentTime" destination="eTs-Y5-vGz" id="Y8B-OI-Tyb"/>
+                <outlet property="personComment" destination="rqZ-8A-xCd" id="Obz-RI-yj9"/>
+                <outlet property="personImageView" destination="oh4-0W-L6e" id="aqL-LO-aDf"/>
+                <outlet property="personName" destination="2H8-jz-Ntl" id="Xb4-Xx-utw"/>
+            </connections>
             <point key="canvasLocation" x="136.23188405797103" y="152.34375"/>
         </tableViewCell>
     </objects>

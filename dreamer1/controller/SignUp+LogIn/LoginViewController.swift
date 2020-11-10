@@ -75,7 +75,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         Test.initTimelineDB()
         Diary.initDB()
         //Diary.Drop()
-        Diary.getDB()
+        //Diary.getDB()
         //Test.getDB1()
         //Test.DeleteDB()
         inviteCode.initDB()

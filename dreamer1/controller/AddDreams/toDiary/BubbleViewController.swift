@@ -32,11 +32,10 @@ class BubbleViewController: UIViewController {
         bubbleLabel2.text = bubbleLabelText2
         bubbleLabel3.text = bubbleLabelText3
         bubbleLabel4.text = bubbleLabelText4
-        
+        contentArray = MySql().getAllNoteContentForBubble()
     }
     
     @IBAction func onBubbleMachinePressed(_ sender: UIButton) {
-        data()
         if contentArray.count == 1{
             bubbleLabel1.text = contentArray[0]
             bubbleLabel2.text = ""
@@ -64,19 +63,7 @@ class BubbleViewController: UIViewController {
         }
         bubbleShow()
     }
-    func data(){
-        let sqlite = SQliteManager.sharedInstance
-        if !sqlite.openDB() { return }
-        let queryresult = sqlite.executeQuerySQL(sql: "SELECT * FROM timeline")
-        if queryresult != nil{
-            for row in queryresult! {
-                if row["id"]! as! Int == (Test.LoginUserId() as NSString).integerValue {
-                    let content = row["content"]! as? String ?? ""
-                    contentArray.append(content)
-                }
-            }
-        }
-    }
+
     
     func inputContent(array: [Int]){
             bubbleLabel1.text = contentArray[array[0]]

@@ -47,7 +47,13 @@ class MeViewController: UIViewController,UICollectionViewDelegateFlowLayout, UIC
         levelLabel.layer.cornerRadius = 5
         let motto = Test.userD.getUserIntro()
         profileLabel.text = motto
+        let userID = MySql().LoginUserID()
+        userIdLabel.text = "Dreamer ID: \(userID)"
+        let userLevel = MySql().getAllDreamFavorSum()/200 + 1
+        levelLabel.text = "Level \(userLevel)"
     }
+    
+
     
     @IBAction func changeName(_ sender: Any) {
 
@@ -97,7 +103,7 @@ class MeViewController: UIViewController,UICollectionViewDelegateFlowLayout, UIC
     func initView1(){
         publicDreamsCollectionView.register(UINib(nibName: "PublicDreamCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "pdreamCell")
         publicDreamsCollectionView.delegate = self
-        result = Test.userD.getUserPublicDream()
+        result = Test.userD.getUserPublicDream(user: MySql().LoginUserName())
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return result!.count
@@ -112,7 +118,7 @@ class MeViewController: UIViewController,UICollectionViewDelegateFlowLayout, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width*0.75, height: collectionView.frame.width*0.5)
+        return CGSize(width: collectionView.frame.width*0.5 - 5, height: (collectionView.frame.width*0.5 - 5)*3/5)
     }
     
     
@@ -191,9 +197,15 @@ class MeViewController: UIViewController,UICollectionViewDelegateFlowLayout, UIC
 }
 extension String{
     func getFirstAlphabet() -> String{
-        let transformContents = CFStringCreateMutableCopy(nil, 0, self as CFString)
-        CFStringTransform(transformContents, nil, kCFStringTransformStripDiacritics, false)
-        let traStr:String = transformContents! as String
+        //转变成可变字符串
+        let mutableString = NSMutableString.init(string: self)
+        //将中文转换成带声调的拼音
+        CFStringTransform(mutableString as CFMutableString, nil,      kCFStringTransformToLatin, false)
+        //去掉声调
+        var transformContents = mutableString.folding(options:          String.CompareOptions.diacriticInsensitive, locale:NSLocale.current)
+        transformContents = CFStringCreateMutableCopy(nil, 0, transformContents as CFString)! as String
+        CFStringTransform((transformContents as! CFMutableString), nil, kCFStringTransformStripDiacritics, false)
+        let traStr:String = transformContents as String
         let firstCharStr = String(traStr.prefix(1))
         var num:UInt32 = 0  //用于接受字符整数值的变量
         for item in firstCharStr.unicodeScalars {

@@ -186,7 +186,7 @@ class MySql
         return motto
     }
     
-    //MARK: userlogin表格
+    //MARK:- userlogin表格
     //userlogin: 获取用户这个月中已经登陆的天数
     func getUserNumber(user: String) ->Int
     {
@@ -343,8 +343,32 @@ class MySql
         }
         return name
     }
-    
-    //MARK: allDream表格
+    //登录的user的ID
+    func LoginUserID() -> Int
+    {
+        Connect()
+        var response: [[String:Any]]
+        var id: Int = 0
+        let queryresult = OHMySQLQueryRequestFactory.select("userlogin", condition: nil)
+        if checkConnectStatus()
+        {
+            do
+            {
+                response = try self.context!.executeQueryRequestAndFetchResult(queryresult)
+                if response.count != 0
+                {
+                    for row in response {
+                        id = row["id"] as! Int
+                    }
+                }
+            }
+            catch {
+                 print("MySQL_Error:\(error)")
+            }
+        }
+        return (id + 10000)
+    }
+    //MARK:- allDream表格
     // allDream插入一个梦想
     func AddNewDream(name: String, ghostName: String, favorablity: Int, ghostStyle: String, tag: String, ispublic: Int)
     {
@@ -362,6 +386,22 @@ class MySql
         Close()
     }
     
+    func deleteDream(ghostName: String)
+    {
+        Connect()
+        let queryresult = OHMySQLQueryRequestFactory.delete("allDream", condition: "ghostName = '\(ghostName)'")
+        if checkConnectStatus()
+        {
+            do
+            {
+                try self.context!.execute(queryresult)
+            }
+            catch {
+                 print("MySQL_Error:\(error)")
+            }
+        }
+        Close()
+    }
     // allDream获取用户所有梦想的名字
     func getAllDreamName(user: String) -> [String]
     {
@@ -389,6 +429,34 @@ class MySql
         }
         Close()
         return Name
+    }
+    
+    //获取用户所有的好感度之和
+    func getAllDreamFavorSum() -> Int
+    {
+        Connect()
+        let user = LoginUserName()
+        var response: [[String: Any]]
+        var sum = 0
+        let queryresult = OHMySQLQueryRequestFactory.select("allDream", condition: "name = '\(user)'")
+        if checkConnectStatus()
+        {
+            do
+            {
+                response = try self.context!.executeQueryRequestAndFetchResult(queryresult)
+                if response.count != 0
+                {
+                    for row in response {
+                        sum += row["favorability"] as! Int
+                    }
+                }
+            }
+            catch {
+                 print("MySQL_Error:\(error)")
+            }
+        }
+        Close()
+        return sum
     }
     
     // allDream获取全部梦想信息
@@ -485,10 +553,10 @@ class MySql
     }
     
     //allDream: 获取所有公开梦想
-    func getUserPublicDream() -> [[String:Any]]
+    func getUserPublicDream(user: String) -> [[String:Any]]
     {
         Connect()
-        let user = LoginUserName()
+        //let user = LoginUserName()
         var response: [[String:Any]] = []
         let queryresult = OHMySQLQueryRequestFactory.select("allDream", condition: "name = '\(user)' AND ispublic = 1")
         if checkConnectStatus()
@@ -505,7 +573,7 @@ class MySql
         return response
     }
     
-    //MARK: detailDream
+    //MARK:- detailDream
     // detailDream插入一个新日记1(保存背景图片)
     
     func SaveImage(img:UIImage?,id: Int)
@@ -643,7 +711,7 @@ class MySql
         return nil
     }
 
-    // detailDream：获得当前用户当前梦想的日记个数
+    // detailDream: 获得当前用户当前梦想的日记个数(不使用此函数！)
     func getId(name: String) -> Int
     {
         Connect()
@@ -730,6 +798,7 @@ class MySql
         Close()
     }
     
+    
     // detailDream: 展示日记重新加载
     func reload(userName: String, ghostName: String) -> [[String:Any]]
     {
@@ -799,31 +868,23 @@ class MySql
     }
     
     // driftMessage: 获取最大id数
-    func getMaxId() -> Int
+    func getAllDriftMessages() -> [[String: Any]]
     {
         Connect()
-        var id = 0
-        var response: [[String: Any]]
+        var response: [[String: Any]] = []
         let queryresult = OHMySQLQueryRequestFactory.select("driftMessage", condition: "")
         if checkConnectStatus()
         {
             do
             {
                 response = try self.context!.executeQueryRequestAndFetchResult(queryresult)
-                if response.count != 0
-                {
-                    for row in response
-                    {
-                        id = row["id"] as! Int
-                    }
-                }
             }
             catch {
                  print("MySQL_Error:\(error)")
             }
         }
         Close()
-        return id
+        return response
     }
     
     // driftMessage: 返回指定message
@@ -844,6 +905,271 @@ class MySql
         }
         Close()
         return response
+    }
+    
+    func getDriftComment(driftID: Int) -> [[String: Any]]?{
+        Connect()
+        var response: [[String:Any]] = []
+        let queryresult = OHMySQLQueryRequestFactory.select("driftcomment", condition: "driftID = '\(driftID)'")
+        if checkConnectStatus()
+        {
+            do
+            {
+                response = try self.context!.executeQueryRequestAndFetchResult(queryresult)
+            }
+            catch {
+                print("MySQL_Error:\(error)")
+            }
+        }
+        Close()
+        return response
+    }
+    
+    func AddDriftComment(content: String, receiver: String,forDriftID: Int)
+    {
+        let userName = LoginUserName()
+        Connect()
+        let date = NSDate()
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date1 = timeFormatter.string(from: date as Date) as String
+        let user0 = OHMySQLQueryRequestFactory.insert("driftcomment", set:
+            ["driftID": forDriftID,
+             "commentorName": "\(userName)",
+                "comment": "\(content)",
+                "receiverName":"\(receiver)",
+                "commentTime": "\(date1)"])
+        if checkConnectStatus()
+        {
+            do{
+                try context!.execute(user0)
+            }
+            catch {
+                 print("MySQL_Error:\(error)")
+            }
+        }
+        Close()
+    }
+    
+     // MARK: - timeline
+    func getAllNoteContentForBubble() ->[String]{
+        Connect()
+        let userName = LoginUserName()
+        var response: [[String:Any]] = []
+        let queryresult = OHMySQLQueryRequestFactory.select("timeline", condition: "userName = '\(userName)'")
+        var content = ""
+        var contentArray:[String] = []
+        if checkConnectStatus()
+        {
+            do
+            {
+                response = try self.context!.executeQueryRequestAndFetchResult(queryresult)
+                if response.count != 0
+                {
+                    for row in response
+                    {
+                        content = String(data: row["content"] as! Data, encoding: String.Encoding.utf8)!
+                        contentArray.append(content)
+                    }
+                }
+            }
+            catch {
+                print("MySQL_Error:\(error)")
+            }
+        }
+        Close()
+        return contentArray
+    }
+    
+    func getAllNotes() ->[[String:Any]]{
+        Connect()
+        let userName = LoginUserName()
+        var response: [[String:Any]] = []
+        let queryresult = OHMySQLQueryRequestFactory.select("timeline", condition: "userName = '\(userName)'")
+        if checkConnectStatus()
+        {
+            do
+            {
+                response = try self.context!.executeQueryRequestAndFetchResult(queryresult)
+            }
+            catch {
+                print("MySQL_Error:\(error)")
+            }
+        }
+        Close()
+        return response
+    }
+    
+    func AddNewNote(content: String, color: String)
+    {
+        let userName = LoginUserName()
+        Connect()
+        let date = NSDate()
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date1 = timeFormatter.string(from: date as Date) as String
+        let user0 = OHMySQLQueryRequestFactory.insert("timeline", set:
+            ["userName": "\(userName)",
+                "date": "\(date1)",
+                "content": "\(content)",
+                "color": "\(color)"])
+        if checkConnectStatus()
+        {
+            do{
+                try context!.execute(user0)
+            }
+            catch {
+                 print("MySQL_Error:\(error)")
+            }
+        }
+        Close()
+    }
+    func deleteNote(id: Int)
+    {
+        Connect()
+        let queryresult = OHMySQLQueryRequestFactory.delete("timeline", condition: "id = \(id)")
+        if checkConnectStatus()
+        {
+            do
+            {
+                try self.context!.execute(queryresult)
+            }
+            catch {
+                 print("MySQL_Error:\(error)")
+            }
+        }
+        Close()
+    }
+    
+    // MARK: - friendRequest
+    func AddFriendRequest(receiverName: String,senderWord:String)
+    {
+        let senderName = LoginUserName()
+        Connect()
+        let user0 = OHMySQLQueryRequestFactory.insert("friendrequest", set:
+            [
+             "senderName": "\(senderName)",
+                "receiverName":"\(receiverName)",
+                "senderWord": "\(senderWord)"])
+        if checkConnectStatus()
+        {
+            do{
+                try context!.execute(user0)
+            }
+            catch {
+                 print("MySQL_Error:\(error)")
+            }
+        }
+        Close()
+    }
+    
+    func getRequestsToMe() ->[[String:Any]]{
+        Connect()
+        let userName = LoginUserName()
+        var response: [[String:Any]] = []
+        let queryresult = OHMySQLQueryRequestFactory.select("friendRequest", condition: "receiverName = '\(userName)'")
+        if checkConnectStatus()
+        {
+            do
+            {
+                response = try self.context!.executeQueryRequestAndFetchResult(queryresult)
+            }
+            catch {
+                print("MySQL_Error:\(error)")
+            }
+        }
+        Close()
+        return response
+    }
+    
+    // MARK: - message(Chat)
+    func getChatInShort() ->[[String:Any]]{
+        Connect()
+        let userName = LoginUserName()
+        var response: [[String:Any]] = []
+        let queryresult = OHMySQLQueryRequestFactory.select("messageIndex", condition: "personA = '\(userName)'")
+        let queryresult1 = OHMySQLQueryRequestFactory.select("messageIndex", condition: "personB = '\(userName)'")
+        if checkConnectStatus()
+        {
+            do
+            {
+                response = try self.context!.executeQueryRequestAndFetchResult(queryresult)
+                response += try self.context!.executeQueryRequestAndFetchResult(queryresult1)
+            }
+            catch {
+                print("MySQL_Error:\(error)")
+            }
+        }
+        Close()
+        return response
+    }
+    
+    func getChatMessageInDetail() -> [[String: Any]]{
+        Connect()
+        let userName = LoginUserName()
+        var response: [[String:Any]] = []
+        let queryresult = OHMySQLQueryRequestFactory.select("messagedetail", condition: "senderName = '\(userName)' OR receiverName = '\(userName)'")
+        if checkConnectStatus()
+        {
+            do
+            {
+                response = try self.context!.executeQueryRequestAndFetchResult(queryresult)
+            }
+            catch {
+                print("MySQL_Error:\(error)")
+            }
+        }
+        Close()
+        return response
+    }
+
+    // MARK: -  心理测评
+    func getFavorForMentalTest() -> [Int]{
+        Connect()
+        let userName = LoginUserName()
+        var response: [[String:Any]] = []
+        var favor = [0,0,0,0,0,0]
+        let queryresult = OHMySQLQueryRequestFactory.select("alldream", condition: "name = '\(userName)'")
+        if checkConnectStatus()
+        {
+            do
+            {
+                response = try self.context!.executeQueryRequestAndFetchResult(queryresult)
+                for row in response
+                {
+                    let style = String(data: row["ghostStyle"] as! Data, encoding: String.Encoding.utf8)
+                    if (style == "幽灵不屑") && (row["favorability"] as! Int > favor[0])
+                    {
+                        favor[0] = row["favorability"] as! Int
+                    }
+                    if style == "幽灵吐舌头" && row["favorability"] as! Int > favor[1]
+                    {
+                        favor[1] = row["favorability"] as! Int
+                    }
+                    if style == "幽灵高兴" && row["favorability"] as! Int > favor[2]
+                    {
+                        favor[2] = row["favorability"] as! Int
+                    }
+                    if style == "幽灵炫酷左" && row["favorability"] as! Int > favor[3]
+                    {
+                        favor[3] = row["favorability"] as! Int
+                    }
+                    if style == "幽灵期待" && row["favorability"] as! Int > favor[4]
+                    {
+                        favor[4] = row["favorability"] as! Int
+                    }
+                    if style == "幽灵抱歉" && row["favorability"] as! Int > favor[5]
+                    {
+                        favor[5] = row["favorability"] as! Int
+                    }
+                }
+            }
+            catch {
+                print("MySQL_Error:\(error)")
+            }
+        }
+        Close()
+        return favor
     }
 }
 

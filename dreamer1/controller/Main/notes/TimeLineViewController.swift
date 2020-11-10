@@ -20,27 +20,13 @@ class TimeLineViewController : UITableViewController {
     
     var textField = UITextField()
     
-    var queryresult: [[String : AnyObject]]? = nil
-    var itemArray = [String]()
-    var dateArray = [String]()
-    var colorArray = [String]()
+    var queryresult: [[String : Any]]? = nil
+
     var style = 0
     func data(){
         let sqlite = SQliteManager.sharedInstance
         if !sqlite.openDB() { return }
-        queryresult = sqlite.executeQuerySQL(sql: "SELECT * FROM timeline")
-        if queryresult != nil{
-            for row in queryresult! {
-                if row["id"]! as! Int == (Test.LoginUserId() as NSString).integerValue {
-                    let date = row["date"]! as? String ?? ""
-                    let content = row["content"]! as? String ?? ""
-                    let color = row["color"]! as? String ?? ""
-                    itemArray.append(content)
-                    dateArray.append(date)
-                    colorArray.append(color)
-                }
-            }
-        }
+        queryresult = MySql().getAllNotes()
     }
     
     override func viewDidLoad() {
@@ -57,7 +43,7 @@ class TimeLineViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemArray.count
+        return queryresult?.count ?? 0
     }
     
     func getColor() -> UIColor {
@@ -95,11 +81,11 @@ class TimeLineViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "timelineCell", for: indexPath) as! SwipeTableViewCell
-        cell.textLabel?.text = itemArray[indexPath.row]
-        cell.backgroundColor = getColor().darken(byPercentage: CGFloat(indexPath.row) / CGFloat(itemArray.count))
+        let cellContent = String(data: queryresult?[indexPath.row]["content"] as! Data, encoding: String.Encoding.utf8)!
+        cell.textLabel?.text = cellContent
+        cell.backgroundColor = getColor().darken(byPercentage: CGFloat(indexPath.row) / CGFloat(queryresult!.count))
         cell.textLabel?.textColor = ContrastColorOf(cell.backgroundColor!, returnFlat: true)
         cell.delegate = self
-
         return cell
     }
     
@@ -107,8 +93,6 @@ class TimeLineViewController : UITableViewController {
 
     @IBAction func changeStyle(_ sender: UIBarButtonItem) {
         style = (style + 1) % 13
-        self.itemArray = []
-        self.dateArray = []
         self.data()
         self.tableView.reloadData()
     }
@@ -119,9 +103,8 @@ class TimeLineViewController : UITableViewController {
         let alertAction2 = UIAlertAction(title: "取消", style: .default, handler: nil)
         let color = UIColor.randomFlat().hexValue()
         let action = UIAlertAction(title: "确定", style: .default) { (action) in
-            Test.AddTimelineItem(content: textField.text!, color: color)
-            self.itemArray = []
-            self.dateArray = []
+            //Test.AddTimelineItem(content: textField.text!, color: color)
+            MySql().AddNewNote(content: textField.text!, color: color)
             self.data()
             self.tableView.reloadData()
         }
@@ -146,9 +129,9 @@ extension TimeLineViewController: SwipeTableViewCellDelegate{
         let deleteAction = SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in
             print("选中列：\(indexPath.row)")
             // 不能选择提示行
-            Test.DeleteTimelineItem(time: self.dateArray[indexPath.row])
-            self.itemArray = []
-            self.dateArray = []
+            //Test.DeleteTimelineItem(time: self.dateArray[indexPath.row])
+            let id = self.queryresult![indexPath.row]["id"] as! Int
+            MySql().deleteNote(id: id)
             self.data()
             self.tableView.reloadData()
             tableView.reloadData()

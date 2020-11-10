@@ -10,7 +10,7 @@ import UIKit
 
 class TextParser: NSObject, YYTextParser {
     
-    let normalFont = UIFont(name: "Marker Felt", size: 25)
+    let normalFont = UIFont.init(descriptor: .init(), size: 22)
     var normalColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     let atTextColor = UIColor.orange
     

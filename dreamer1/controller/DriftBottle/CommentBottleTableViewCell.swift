@@ -10,6 +10,10 @@ import UIKit
 
 class CommentBottleTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var personImageView: UIImageView!
+    @IBOutlet weak var personName: UILabel!
+    @IBOutlet weak var personComment: UILabel!
+    @IBOutlet weak var commentTime: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

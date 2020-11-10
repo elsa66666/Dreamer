@@ -29,29 +29,31 @@ class GiveUpViewController: UIViewController {
         if favorNumber.text! != "0" {
             favorNumber.text! = "\(Int(favorNumber.text!)! - 1)"
         }
-        else{
+        else{  //删除梦想
             timer.invalidate()
-            Test.deleteDB(name: Diary.DghostName)
-            Diary.deleteDB(name: Diary.DghostName)
-            Test.Rearrangement()
+            MySql().deleteDream(ghostName: Diary.DghostName)
+            //返回主界面
             let mainBoard:UIStoryboard! = UIStoryboard(name: "Main", bundle: nil)
             let VCMain = mainBoard!.instantiateViewController(withIdentifier: "vcMain")
             UIApplication.shared.windows[0].rootViewController = VCMain
         }
     }
     
+    //反悔，不删梦
     @IBAction func giveUpDelete(_ sender: Any) {
         timer.invalidate()
-        Test.GiveUpDelete(favor: Int(favorNumber.text!)!, name: Diary.DghostName)
-        let alert = UIAlertController(title: "\(Diary.DghostName)", message: "万幸，差点就失去你了", preferredStyle: .alert)
-        let action = UIAlertAction(title: "确定", style: .default) { (action) in
-            let mainBoard:UIStoryboard! = UIStoryboard(name: "Main", bundle: nil)
-            let VCMain = mainBoard!.instantiateViewController(withIdentifier: "vcMain")
-            UIApplication.shared.windows[0].rootViewController = VCMain
+        if (favorNumber.text! != "0"){
+            let nowFavor = Int(favorNumber.text!)!
+            let favorDecrease = nowFavor - Diary.favor
+            MySql().AddFavor(ghostName: Diary.DghostName, add: favorDecrease)
+            let alert = UIAlertController(title: "\(Diary.DghostName)", message: "万幸，差点就失去你了", preferredStyle: .alert)
+            let action = UIAlertAction(title: "确定", style: .default) { (action) in
+                let mainBoard:UIStoryboard! = UIStoryboard(name: "Main", bundle: nil)
+                let VCMain = mainBoard!.instantiateViewController(withIdentifier: "vcMain")
+                UIApplication.shared.windows[0].rootViewController = VCMain
+            }
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
         }
-        
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
     }
-
 }

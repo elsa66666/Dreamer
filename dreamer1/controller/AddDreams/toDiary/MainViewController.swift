@@ -135,7 +135,10 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
         line2.isHidden = true
         line3.isHidden = true
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        initView1()
+        detailedCollectionView.reloadData()
+    }
     @IBAction func toNotes(_ sender: UIButton) {
         let mainBoard:UIStoryboard! = UIStoryboard(name: "Main", bundle: nil)
         let VCMain = mainBoard!.instantiateViewController(withIdentifier: "toNotes")
@@ -196,7 +199,7 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
         }else{
             Diary.DghostName = String(data: queryResult[indexPath.row]["ghostName"] as! Data, encoding: String.Encoding.utf8)!
             Diary.favor = (queryResult[indexPath.row]["favorability"] as? Int)!
-            
+            //跳转到删梦界面
             let mainBoard:UIStoryboard! = UIStoryboard(name: "Main", bundle: nil)
             let VCMain = mainBoard!.instantiateViewController(withIdentifier: "giveUp")
             UIApplication.shared.windows[0].rootViewController = VCMain
@@ -439,24 +442,31 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
         yPureArray1 = []
         yPureArray2 = []
         let data1 = Diary.getaverageday(day: year + "." + day1)
+        //let data1 = [95.0,5.0]
         yPureArray1.append(data1[0])
         yPureArray2.append(data1[1])
         let data2 = Diary.getaverageday(day: year + "." + day2)
+        //let data2 = [90.0,10.0]
         yPureArray1.append(data2[0])
         yPureArray2.append(data2[1])
         let data3 = Diary.getaverageday(day: year + "." + day3)
+        //let data3 = [70.0,30.0]
         yPureArray1.append(data3[0])
         yPureArray2.append(data3[1])
         let data4 = Diary.getaverageday(day: year + "." + day4)
+        //let data4 = [30.0,70.0]
         yPureArray1.append(data4[0])
         yPureArray2.append(data4[1])
         let data5 = Diary.getaverageday(day: year + "." + day5)
+        //let data5 = [50.0,50.0]
         yPureArray1.append(data5[0])
         yPureArray2.append(data5[1])
         let data6 = Diary.getaverageday(day: year + "." + day6)
+        //let data6 = [67.0,33.0]
         yPureArray1.append(data6[0])
         yPureArray2.append(data6[1])
         let data7 = Diary.getaverageday(day: year + "." + day7)
+        //let data7 = [82.0,18.0]
         yPureArray1.append(data7[0])
         yPureArray2.append(data7[1])
     }
@@ -464,6 +474,7 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
     {
         let day = Date().toFormat("YYYY.MM.dd", locale: Locale.current)
         let data = Diary.getaverageweek(day: day)
+        //let data = [90.0,10.0,70.0,30.0,30.0,70.0,95.0,5.0,50.0,50.0,67.0,33.0,82.0,18.0]
         for i in 0...13
         {
             if i % 2 == 0
@@ -475,7 +486,7 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
                 yPureArray2.append(data[i])
             }
         }
-        print(yPureArray1,yPureArray2)
+        //print(yPureArray1,yPureArray2)
     }
     
     func initYearlyData()
@@ -499,6 +510,19 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
             yPureArray1.append(data[0])
             yPureArray2.append(data[1])
         }
+        /*
+        for i in 0...9
+        {
+            let data = Diary.getaveragemonth(year: month[11 - i])
+            yPureArray1.append(data[0])
+            yPureArray2.append(data[1])
+        }
+        for _ in 10...11
+        {
+            let data = [0.0,0.0]
+            yPureArray1.append(data[0])
+            yPureArray2.append(data[1])
+        }*/
     }
     
     // MARK: -show chart

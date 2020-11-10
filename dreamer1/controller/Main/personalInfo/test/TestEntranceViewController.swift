@@ -21,14 +21,14 @@ class TestEntranceViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidLoad()
         leftTableView.delegate = self
         rightTableView.delegate = self
-        leftTableView.rowHeight = 220
-        rightTableView.rowHeight = 220
+        leftTableView.rowHeight = 206
+        rightTableView.rowHeight = 206
         leftTableView.register(UINib(nibName: "testGhostCell", bundle: nil), forCellReuseIdentifier: "TGReusableCell")
         rightTableView.register(UINib(nibName: "testGhostCell", bundle: nil), forCellReuseIdentifier: "TGReusableCell")
 
         fullView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
 
-        favor = Test.getfavor()
+        favor = MySql().getFavorForMentalTest()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

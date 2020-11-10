@@ -9,17 +9,34 @@
 import UIKit
 
 class NewFriendsViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
+    
+    var queryresult:[[String: Any]] = []
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        queryresult = MySql().getRequestsToMe()
+        newFriendsTableView.delegate = self
+        //newFriendsTableView.rowHeight = 86
+        newFriendsTableView.register(UINib(nibName: "NewFriendsTableViewCell", bundle: nil), forCellReuseIdentifier: "reuseFriends")
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        queryresult.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseFriends", for: indexPath) as! NewFriendsTableViewCell
-        /*
-        let userName = "数据库-好友申请表中取"
-        let imageName = userName.getFirstAlphabet()+".circle"
+
+        let senderName = String(data: queryresult[indexPath.row]["senderName"] as! Data, encoding: String.Encoding.utf8)!
+        let senderWord = String(data: queryresult[indexPath.row]["senderWord"] as! Data, encoding: String.Encoding.utf8)!
+
+        let imageName = senderName.getFirstAlphabet()+".circle"
         cell.userPhoto.image = UIImage(systemName: imageName)
-        */
+        cell.userName.text = senderName
+        cell.userWords.text = senderWord
+        cell.onButtonTapped = {
+            print("BUtton tapped")
+        }
         return cell
     }
     
@@ -32,7 +49,7 @@ class NewFriendsViewController: UIViewController,UITableViewDelegate, UITableVie
             //数据库添加一条好友申请
             let friendName = addFriendNameTextField.text
             let addFMessage = addFriendMessageTextField.text
-            print(friendName!, addFMessage!)
+            MySql().AddFriendRequest(receiverName: friendName!, senderWord: addFMessage!)
         }
         
         alert.addTextField { (alertTextField) in
@@ -48,10 +65,5 @@ class NewFriendsViewController: UIViewController,UITableViewDelegate, UITableVie
         present(alert, animated: true, completion: nil)
     }
     @IBOutlet weak var newFriendsTableView: UITableView!
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        newFriendsTableView.delegate = self
-        newFriendsTableView.rowHeight = 86
-        newFriendsTableView.register(UINib(nibName: "NewFriendsTableViewCell", bundle: nil), forCellReuseIdentifier: "reuseFriends")
-    }
+
 }

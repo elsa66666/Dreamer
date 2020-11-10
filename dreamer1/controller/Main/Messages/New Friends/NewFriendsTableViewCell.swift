@@ -27,5 +27,11 @@ class NewFriendsTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    var onButtonTapped : (() -> Void)? = nil
+    @IBAction func onAcceptClicked(_ sender: UIButton) {
+        if let onButtonTapped = self.onButtonTapped {
+         onButtonTapped()
+        } 
+    }
     
 }

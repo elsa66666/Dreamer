@@ -20,7 +20,7 @@
                     <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ULj-WZ-4X0">
                         <rect key="frame" x="0.0" y="0.0" width="192" height="120"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":2577" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u3h-ld-GTh">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u3h-ld-GTh">
                                 <rect key="frame" x="125" y="98" width="32" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="25N-wD-8Vx"/>
@@ -31,13 +31,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sWx-ZR-Rmb">
-                                <rect key="frame" x="107" y="98" width="16" height="16"/>
+                                <rect key="frame" x="107" y="99.5" width="16" height="13.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="cdW-lG-OWV"/>
                                     <constraint firstAttribute="width" constant="16" id="dH9-Gv-F8c"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" backgroundImage="star" catalog="system"/>
+                                <state key="normal" backgroundImage="suit.heart" catalog="system"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" name="purple-white"/>
@@ -138,7 +138,7 @@
     </objects>
     <resources>
         <image name="bubble.right.fill" catalog="system" width="128" height="110"/>
-        <image name="star" catalog="system" width="128" height="116"/>
+        <image name="suit.heart" catalog="system" width="128" height="109"/>
         <image name="幽灵七夕" width="545" height="567"/>
         <image name="心右" width="426" height="389"/>
         <namedColor name="purple-white">

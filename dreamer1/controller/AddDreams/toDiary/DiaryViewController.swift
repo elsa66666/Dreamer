@@ -33,6 +33,7 @@ class DiaryViewController: UIViewController, TokenDelegate, EmotionDelegate {
     var ifPointUpdated = false //判断好感度算法是否已经回传值
     var enter = false //判断是否是等待修改的日记
     var pic = true //判断日记是否含图片
+    var diaryIndex = 0 //日记的screenshot对应第几张
     
     var tokenManager = TokenManager()
     var emotionManager = EmotionManager()
@@ -72,7 +73,7 @@ class DiaryViewController: UIViewController, TokenDelegate, EmotionDelegate {
             if !sqlite.openDB(){return}
             let id = Diary.getpicID(name: ghostName)
             // 用index数值带入id[?]获取真正的id
-            let query = Diary.getDB1(id: id[1])
+            let query = Diary.getDB1(id: id[diaryIndex])
             for row in query!
             {
                 diary = row["words"] as! String
@@ -130,15 +131,15 @@ class DiaryViewController: UIViewController, TokenDelegate, EmotionDelegate {
             case 0:
                 bgImage.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
             case 1:
-                bgImage.backgroundColor = #colorLiteral(red: 0.8941176471, green: 0.9568627451, blue: 0.9607843137, alpha: 1)
+                bgImage.backgroundColor = #colorLiteral(red: 0.8900035024, green: 0.8932359815, blue: 0.9670411944, alpha: 1)
             case 2:
-                bgImage.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.8666666667, blue: 0.8549019608, alpha: 0.9317831889)
+                bgImage.backgroundColor = #colorLiteral(red: 0.9805278182, green: 0.9773011804, blue: 0.9069741368, alpha: 1)
             case 3:
-                bgImage.backgroundColor = #colorLiteral(red: 1, green: 0.9803921569, blue: 0.8039215686, alpha: 1)
+                bgImage.backgroundColor = #colorLiteral(red: 0.939129591, green: 0.9705721736, blue: 0.8997138143, alpha: 1)
             case 4:
-                bgImage.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9803921569, alpha: 1)
+                bgImage.backgroundColor = #colorLiteral(red: 0.9475502372, green: 0.9088328481, blue: 0.8874593377, alpha: 1)
             case 5 :
-                bgImage.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.9725490196, blue: 1, alpha: 1)
+                bgImage.backgroundColor = #colorLiteral(red: 0.9784153104, green: 0.9678557515, blue: 1, alpha: 1)
             default:
                 bgImage.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         }
@@ -234,9 +235,10 @@ class DiaryViewController: UIViewController, TokenDelegate, EmotionDelegate {
                     let fileManager = FileManager.default
                     let rootPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,
                     .userDomainMask, true)[0] as String
-                    let date = NSDate(),
-                    timeInterval = date.timeIntervalSince1970 * 1000
-                    let filePath = "\(rootPath)/" + String(timeInterval) + ".png"
+                    //let date = NSDate(),
+                    //timeInterval = date.timeIntervalSince1970 * 1000
+                    let uniqueID = NSUUID().uuidString
+                    let filePath = "\(rootPath)/" + uniqueID + ".png"
                     let imageData = image.jpegData(compressionQuality: 1.0)
                     fileManager.createFile(atPath: filePath, contents: imageData, attributes: nil)
                     //OssClient.getToken()
