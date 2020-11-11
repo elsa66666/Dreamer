@@ -18,10 +18,8 @@ class MeViewController: UIViewController,UICollectionViewDelegateFlowLayout, UIC
     
     @IBOutlet weak var line1: UIView!
     @IBOutlet weak var line2: UIView!
-    @IBOutlet weak var line3: UIView!
     @IBOutlet weak var view1: UIView!
     @IBOutlet weak var view2: UIView!
-    @IBOutlet weak var view3: UIView!
     
     @IBOutlet weak var profileImageView: UIImageView!
     override func viewDidLoad() {
@@ -29,11 +27,9 @@ class MeViewController: UIViewController,UICollectionViewDelegateFlowLayout, UIC
         initProfile()
         line1.isHidden = false
         line2.isHidden = true
-        line3.isHidden = true
         
         view1.isHidden = false
         view2.isHidden = true
-        view3.isHidden = true
         
         initView1()
         initView2()
@@ -114,73 +110,102 @@ class MeViewController: UIViewController,UICollectionViewDelegateFlowLayout, UIC
         cell.dreamName.text = String(data: result![indexPath.row]["ghostName"] as! Data, encoding: String.Encoding.utf8)
         cell.ghostImageView.image = UIImage(named: String(data: result![indexPath.row]["ghostStyle"] as! Data, encoding: String.Encoding.utf8)!)
         cell.dreamFavorability.text = "\(result![indexPath.row]["favorability"] as! Int)"
+        let generateDate = result![indexPath.row]["createDate"] as! String
+        cell.generatedDateLabel.text = convertDateString(string: generateDate)
+        let likePerson=result![indexPath.row]["likeCount"] as! Int
+        cell.likedPersonCount.text = "\(likePerson)"
         return cell
     }
-    
+    // 转化成格式化后的日期字符串
+    private func convertDateString(string: String) -> String{
+        let date = Util.stringConvertDate(string: string)
+        let tempString = Util.dateConvertString(date: date)
+        return tempString
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width*0.5 - 5, height: (collectionView.frame.width*0.5 - 5)*3/5)
     }
     
+    var connectDreamName = ""
+    var connectDreamFavor = 0
+    var connectDreamLike = 0
+    var connectDreamProfile = ""
+    var connectDreamStyle = ""
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        connectDreamName = String(data: result![indexPath.row]["ghostName"] as! Data, encoding: String.Encoding.utf8)!
+        connectDreamFavor = result![indexPath.row]["favorability"] as! Int
+        connectDreamLike = result![indexPath.row]["likeCount"] as! Int
+        connectDreamProfile=String(data: result![indexPath.row]["tag"] as! Data, encoding: String.Encoding.utf8)!
+        connectDreamStyle = String(data: result![indexPath.row]["ghostStyle"] as! Data, encoding: String.Encoding.utf8)!
+        performSegue(withIdentifier: "toMyPublicDream", sender: self)
+    }
     
     
     // MARK: -init view2
+    
+    var queryresult:[[String: Any]]?
     @IBOutlet weak var suggestionTableView: UITableView!
     func initView2(){
         suggestionTableView.register(UINib(nibName: "SuggestionsTableViewCell", bundle: nil), forCellReuseIdentifier: "suggestion")
         suggestionTableView.delegate = self
         suggestionTableView.rowHeight = 80
+        queryresult = MySql().getAllMyPosts()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        queryresult!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          let cell = tableView.dequeueReusableCell(withIdentifier: "suggestion", for: indexPath) as! SuggestionsTableViewCell
+        cell.suggestTitle.text = String(data: queryresult![indexPath.row]["title"] as! Data, encoding: String.Encoding.utf8)!
+        cell.suggestContent.text = String(data: queryresult![indexPath.row]["context"] as! Data, encoding: String.Encoding.utf8)!
         return cell
     }
     
-    
+    var connectDriftID:Int?
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        connectDriftID = (queryresult![indexPath.row]["id"] as! Int)
+        performSegue(withIdentifier: "toMyBottle", sender: self)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "toMyBottle") {
+            if let destination = segue.destination as? MyBottleViewController {
+                destination.driftID = connectDriftID
+            }
+        }
+        if(segue.identifier == "toMyPublicDream") {
+            if let destination = segue.destination as? MyPublicDreamViewController {
+                destination.favor = connectDreamFavor
+                destination.dreamName = connectDreamName
+                destination.likeCount = connectDreamLike
+                destination.tag = connectDreamProfile
+                destination.dreamStyle = connectDreamStyle
+            }
+        }
+    }
     // MARK: -inter views
     func changeView(change:Int){
         if change == 1{
             line1.isHidden = false
             line2.isHidden = true
-            line3.isHidden = true
-            
             view1.isHidden = false
             view2.isHidden = true
-            view3.isHidden = true
         }else if change == 2{
             line1.isHidden = true
             line2.isHidden = false
-            line3.isHidden = true
-            
             view1.isHidden = true
             view2.isHidden = false
-            view3.isHidden = true
-        }else{
-            line1.isHidden = true
-            line2.isHidden = true
-            line3.isHidden = false
-            
-            view1.isHidden = true
-            view2.isHidden = true
-            view3.isHidden = false
         }
     }
-    
-    
+
     @IBAction func publicDreamsPressed(_ sender: UIButton) {
         changeView(change: 1)
     }
     
     @IBAction func suggestionPressed(_ sender: UIButton) {
         changeView(change: 2)
-    }
-    
-    @IBAction func collectionPressed(_ sender: UIButton) {
-        changeView(change: 3)
     }
     
     @IBAction func toMagicTest(_ sender: UIButton) {

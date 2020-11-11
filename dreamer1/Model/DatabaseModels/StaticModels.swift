@@ -15,4 +15,5 @@ class toARGuidance {
 class dreamToAllDiaries{
     static var dreamName:String = ""
     static var dreamFavor:Int = 0
+    static var publicize:Bool = true
 }

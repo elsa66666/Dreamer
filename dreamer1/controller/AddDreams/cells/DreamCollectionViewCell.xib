@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -46,7 +46,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ifO-3s-bAP">
-                                <rect key="frame" x="20" y="183" width="140" height="30"/>
+                                <rect key="frame" x="10" y="183" width="160" height="30"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="心右" translatesAutoresizingMaskIntoConstraints="NO" id="GnB-aq-lW2">
                                         <rect key="frame" x="0.0" y="7.5" width="15" height="15"/>
@@ -64,24 +64,25 @@
                                         <color key="textColor" red="0.41242486239999998" green="0.29352706670000001" blue="0.50982445480000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="public?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="o0B-N1-bHj">
-                                        <rect key="frame" x="45" y="8" width="46" height="14.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="public?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="o0B-N1-bHj">
+                                        <rect key="frame" x="45" y="8" width="66" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jcn-cE-f8u">
-                                        <rect key="frame" x="91" y="3" width="51" height="24"/>
+                                        <rect key="frame" x="111" y="3" width="51" height="24"/>
                                     </switch>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="jcn-cE-f8u" firstAttribute="top" secondItem="ifO-3s-bAP" secondAttribute="top" constant="3" id="IZP-ey-5ha"/>
+                                    <constraint firstAttribute="trailing" secondItem="jcn-cE-f8u" secondAttribute="trailing" id="YlR-0E-EJ3"/>
                                     <constraint firstAttribute="height" constant="30" id="yhk-EB-p7t"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="ifO-3s-bAP" secondAttribute="trailing" constant="20" id="dMR-zE-XNS"/>
+                            <constraint firstAttribute="trailing" secondItem="ifO-3s-bAP" secondAttribute="trailing" constant="10" id="dMR-zE-XNS"/>
                         </constraints>
                     </stackView>
                 </subviews>

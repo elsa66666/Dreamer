@@ -15,21 +15,23 @@ class BottleReceivedViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var contentText: UITextView!
     
     @IBOutlet weak var commentTableView: UITableView!
- 
+    var sum = 0
+    var random = 0
     var queryResult:[[String: Any]] = []
     var commentResult:[[String: Any]] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         queryResult = MySql().getAllDriftMessages()
+        sum = queryResult.count
+        random = Int(arc4random_uniform(UInt32(sum)))
         getALetter()
         commentTableView.delegate = self
         commentTableView.register(UINib(nibName: "CommentBottleTableViewCell", bundle: nil), forCellReuseIdentifier: "CommentBottle")
     }
-    let random = 0
+    
     var receiverName = ""
-    //let random = Int(arc4random_uniform(UInt32(sum)))
     func getALetter(){
-        let sum = queryResult.count
+        random = Int(arc4random_uniform(UInt32(sum)))
         let row = queryResult[random]
         let title = String(data: row["title"] as! Data, encoding: String.Encoding.utf8)!
         titleText.text = title

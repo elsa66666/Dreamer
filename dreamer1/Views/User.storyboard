@@ -87,9 +87,6 @@
                                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                             </textField>
                                                         </subviews>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="300" id="reS-VM-Ako"/>
-                                                        </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="KfV-w6-dL9">
                                                         <rect key="frame" x="314" y="54" width="50" height="150"/>
@@ -257,9 +254,6 @@
                                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                             </textField>
                                                         </subviews>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="300" id="30N-8j-EO3"/>
-                                                        </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="E6e-kM-yDW">
                                                         <rect key="frame" x="314" y="22.5" width="50" height="150"/>
@@ -457,7 +451,7 @@
                             <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="np0-mE-ccn">
                                 <rect key="frame" x="0.0" y="695" width="414" height="66"/>
                                 <color key="backgroundColor" red="0.31408395538298828" green="0.24066969768059193" blue="0.39651492212649575" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="45"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Sign In"/>
                                 <connections>
@@ -467,7 +461,7 @@
                             <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t4c-pn-DRj">
                                 <rect key="frame" x="0.0" y="601" width="414" height="66"/>
                                 <color key="backgroundColor" red="0.74938458200000002" green="0.68029695749999997" blue="0.8078579307" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="45"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Sign Up">
                                     <color key="titleColor" red="0.41242486239999998" green="0.29352706670000001" blue="0.50982445480000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -481,7 +475,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="6dx-eK-BHV"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="PartyLetPlain" family="Party LET" pointSize="50"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="50"/>
                                 <color key="textColor" red="0.74938458200000002" green="0.68029695749999997" blue="0.8078579307" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -511,7 +505,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="gtO-ub-KYw"/>
+        <segue reference="ef7-am-Vvz"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="幽灵注册" width="5937" height="5538"/>

@@ -55,19 +55,19 @@
                             <constraint firstAttribute="width" constant="65" id="VwO-Vz-l5G"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25 diaries" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmj-nM-sgV">
-                        <rect key="frame" x="93" y="42" width="84" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25 diaries" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="vmj-nM-sgV">
+                        <rect key="frame" x="73" y="62" width="107" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="i09-TQ-pHH"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dance" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="v42-Ob-qS4">
-                        <rect key="frame" x="93" y="15" width="84" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dance" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="v42-Ob-qS4">
+                        <rect key="frame" x="93" y="15" width="84" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="PKV-Ij-faF"/>
+                            <constraint firstAttribute="height" constant="40" id="PKV-Ij-faF"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -108,7 +108,7 @@
                 <constraint firstItem="Rp0-yd-fNA" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="3fh-Br-D3V"/>
                 <constraint firstItem="v42-Ob-qS4" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="98v-cR-lnu"/>
                 <constraint firstAttribute="bottom" secondItem="ULj-WZ-4X0" secondAttribute="bottom" id="CeL-Tv-yJh"/>
-                <constraint firstAttribute="trailing" secondItem="vmj-nM-sgV" secondAttribute="trailing" constant="15" id="DDh-TK-76Y"/>
+                <constraint firstAttribute="trailing" secondItem="vmj-nM-sgV" secondAttribute="trailing" constant="12" id="DDh-TK-76Y"/>
                 <constraint firstItem="QjA-YG-D4a" firstAttribute="leading" secondItem="DiA-N3-dJu" secondAttribute="trailing" id="E0P-ZE-faN"/>
                 <constraint firstAttribute="bottom" secondItem="DiA-N3-dJu" secondAttribute="bottom" constant="4" id="EWJ-Hx-kzt"/>
                 <constraint firstAttribute="bottom" secondItem="QjA-YG-D4a" secondAttribute="bottom" constant="6" id="Lsm-nR-1HW"/>
@@ -117,7 +117,7 @@
                 <constraint firstAttribute="trailing" secondItem="ULj-WZ-4X0" secondAttribute="trailing" id="f7C-nL-t8z"/>
                 <constraint firstAttribute="bottom" secondItem="5Tk-MM-WfD" secondAttribute="bottom" constant="5" id="fgO-Rc-xvO"/>
                 <constraint firstItem="Rp0-yd-fNA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="g4U-V2-eR2"/>
-                <constraint firstItem="vmj-nM-sgV" firstAttribute="leading" secondItem="Rp0-yd-fNA" secondAttribute="trailing" constant="20" id="gCW-dK-tsx"/>
+                <constraint firstItem="vmj-nM-sgV" firstAttribute="leading" secondItem="Rp0-yd-fNA" secondAttribute="trailing" id="gCW-dK-tsx"/>
                 <constraint firstAttribute="trailing" secondItem="v42-Ob-qS4" secondAttribute="trailing" constant="15" id="jx8-4D-c00"/>
                 <constraint firstItem="ULj-WZ-4X0" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="k5V-mL-9tn"/>
                 <constraint firstAttribute="trailing" secondItem="5Tk-MM-WfD" secondAttribute="trailing" constant="10" id="ozZ-2S-Onj"/>
@@ -126,12 +126,12 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="192" height="120"/>
             <connections>
-                <outlet property="diaryNumLabel" destination="vmj-nM-sgV" id="iJr-ry-iU8"/>
                 <outlet property="dreamFavorability" destination="QjA-YG-D4a" id="VSK-O3-mRF"/>
                 <outlet property="dreamName" destination="v42-Ob-qS4" id="ANm-wy-aHX"/>
                 <outlet property="fullView" destination="ULj-WZ-4X0" id="3lM-FZ-96h"/>
+                <outlet property="generatedDateLabel" destination="vmj-nM-sgV" id="X2n-E7-sWW"/>
                 <outlet property="ghostImageView" destination="Rp0-yd-fNA" id="gSP-rW-ttG"/>
-                <outlet property="starredPerson" destination="u3h-ld-GTh" id="8Wq-an-3qj"/>
+                <outlet property="likedPersonCount" destination="u3h-ld-GTh" id="Jnh-nE-BwJ"/>
             </connections>
             <point key="canvasLocation" x="205.79710144927537" y="110.49107142857143"/>
         </collectionViewCell>

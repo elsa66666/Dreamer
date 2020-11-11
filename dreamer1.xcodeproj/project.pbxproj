@@ -64,6 +64,9 @@
 		5F77209D250B492300D3B2D4 /* PublicDreamCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F77209B250B492300D3B2D4 /* PublicDreamCollectionViewCell.swift */; };
 		5F77209E250B492300D3B2D4 /* PublicDreamCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F77209C250B492300D3B2D4 /* PublicDreamCollectionViewCell.xib */; };
 		5F7A785A24E0F827001ACDFA /* 幽灵1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5F7A785924E0F827001ACDFA /* 幽灵1.mp4 */; };
+		5F8067C5255BBE9600577F7F /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8067C4255BBE9600577F7F /* Util.swift */; };
+		5F8067C7255BC9B600577F7F /* MyBottleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8067C6255BC9B600577F7F /* MyBottleViewController.swift */; };
+		5F8067C9255BD63F00577F7F /* MyPublicDreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8067C8255BD63F00577F7F /* MyPublicDreamViewController.swift */; };
 		5F83740624DDA58E0067F601 /* 幽灵6.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5F83740524DDA58E0067F601 /* 幽灵6.mp4 */; };
 		5F83740824DDA5B60067F601 /* 幽灵2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5F83740724DDA5B60067F601 /* 幽灵2.mp4 */; };
 		5F83740A24DDA5E40067F601 /* 幽灵3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5F83740924DDA5E40067F601 /* 幽灵3.mp4 */; };
@@ -187,6 +190,9 @@
 		5F77209B250B492300D3B2D4 /* PublicDreamCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicDreamCollectionViewCell.swift; sourceTree = "<group>"; };
 		5F77209C250B492300D3B2D4 /* PublicDreamCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicDreamCollectionViewCell.xib; sourceTree = "<group>"; };
 		5F7A785924E0F827001ACDFA /* 幽灵1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "幽灵1.mp4"; sourceTree = "<group>"; };
+		5F8067C4255BBE9600577F7F /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		5F8067C6255BC9B600577F7F /* MyBottleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBottleViewController.swift; sourceTree = "<group>"; };
+		5F8067C8255BD63F00577F7F /* MyPublicDreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPublicDreamViewController.swift; sourceTree = "<group>"; };
 		5F83740524DDA58E0067F601 /* 幽灵6.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "幽灵6.mp4"; sourceTree = "<group>"; };
 		5F83740724DDA5B60067F601 /* 幽灵2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "幽灵2.mp4"; sourceTree = "<group>"; };
 		5F83740924DDA5E40067F601 /* 幽灵3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "幽灵3.mp4"; sourceTree = "<group>"; };
@@ -324,6 +330,7 @@
 				5F4EA3E124BAF4BC00A5B1B4 /* DatabaseModels */,
 				2D4819142465BA010066A0CC /* dreamer1-Bridging-Header.h */,
 				5F09FE5724DCE80700342CA0 /* ForChart.swift */,
+				5F8067C4255BBE9600577F7F /* Util.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -516,7 +523,9 @@
 				5F61F28525163E9F0036BCB0 /* SuggestionsTableViewCell.xib */,
 				5F77209B250B492300D3B2D4 /* PublicDreamCollectionViewCell.swift */,
 				5F77209C250B492300D3B2D4 /* PublicDreamCollectionViewCell.xib */,
+				5F8067C6255BC9B600577F7F /* MyBottleViewController.swift */,
 				5FFF81E724F7EE6300505078 /* test */,
+				5F8067C8255BD63F00577F7F /* MyPublicDreamViewController.swift */,
 			);
 			path = personalInfo;
 			sourceTree = "<group>";
@@ -791,6 +800,7 @@
 				5FE88017250AFB8700D9CE1E /* NewFriendsViewController.swift in Sources */,
 				2D48190C2465B87E0066A0CC /* Test.swift in Sources */,
 				24C403E2248170480094A280 /* StyleViewController.swift in Sources */,
+				5F8067C9255BD63F00577F7F /* MyPublicDreamViewController.swift in Sources */,
 				5FFF81EC24F7F08E00505078 /* GiveUpViewController.swift in Sources */,
 				5F77209D250B492300D3B2D4 /* PublicDreamCollectionViewCell.swift in Sources */,
 				5FE88014250AFA5C00D9CE1E /* MessagesViewController.swift in Sources */,
@@ -809,6 +819,7 @@
 				5F4EA3DE24BAF48000A5B1B4 /* ARObjectAddition.swift in Sources */,
 				5F428FB524FCCE9F00144393 /* SpeechRecognitionViewController.swift in Sources */,
 				2D6DD096247BBBF30020AEA0 /* TimeLineViewController.swift in Sources */,
+				5F8067C7255BC9B600577F7F /* MyBottleViewController.swift in Sources */,
 				5F2DD4C024E2FCCD0092EE76 /* TestResultViewController.swift in Sources */,
 				5FA69F25250B10EC00924E1A /* CommentsViewController.swift in Sources */,
 				24EDA989253726CF00A2EF7C /* OssClient.swift in Sources */,
@@ -823,6 +834,7 @@
 				244D897A247EBF0B007322D9 /* inviteCodeViewController.swift in Sources */,
 				5FFE3F56250A520E0015E746 /* LetterSendViewController.swift in Sources */,
 				2D4818E32465B72E0066A0CC /* SceneDelegate.swift in Sources */,
+				5F8067C5255BBE9600577F7F /* Util.swift in Sources */,
 				5F4BF52424D7075D00C34E50 /* BubbleViewController.swift in Sources */,
 				2DB3813424B1E10D00E936DC /* EmotionAPI.swift in Sources */,
 			);
@@ -983,7 +995,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = APX4C9LWP5;
 				INFOPLIST_FILE = dreamer1/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1008,7 +1020,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = APX4C9LWP5;
 				INFOPLIST_FILE = dreamer1/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

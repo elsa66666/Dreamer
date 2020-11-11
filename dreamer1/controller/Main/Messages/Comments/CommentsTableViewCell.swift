@@ -14,8 +14,6 @@ class CommentsTableViewCell: UITableViewCell {
     @IBOutlet weak var userName: UILabel!
     
     @IBOutlet weak var commentWords: UILabel!
-    
-    @IBOutlet weak var postPic: UIImageView!
     @IBOutlet weak var commentTime: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,5 +25,10 @@ class CommentsTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+    var onButtonTapped : (() -> Void)? = nil
+    @IBAction func knownClicked(sender: UIButton) {
+     if let onButtonTapped = self.onButtonTapped {
+      onButtonTapped()
+     }
+    }
 }

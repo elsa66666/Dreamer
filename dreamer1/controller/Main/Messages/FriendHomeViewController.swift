@@ -11,6 +11,7 @@ class FriendHomeViewController:UIViewController,UITableViewDataSource, UITableVi
 
     
 
+    @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var friendNameTitle: UINavigationItem!
     
     @IBOutlet weak var pdreamCollectionView: UICollectionView!
@@ -20,9 +21,9 @@ class FriendHomeViewController:UIViewController,UITableViewDataSource, UITableVi
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var commentTableView: UITableView!
     var friendName:String?
-    var result: [[String:Any]]?
-    var commentResult:[[String: Any]] = []
-    var starNumber:Int = 25
+    var result: [[String:Any]]?  //所有公开dream
+    var commentResult:[[String: Any]] = []  //所有评论
+    var starNumber:Int = 0
     var commentNumber:Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,14 +31,15 @@ class FriendHomeViewController:UIViewController,UITableViewDataSource, UITableVi
         pdreamCollectionView.register(UINib(nibName: "PublicDreamCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "pdreamCell")
         pdreamCollectionView.delegate = self
         result = Test.userD.getUserPublicDream(user: friendName!)
-        commentResult = MySql().getDriftComment(driftID: 2) ?? []
+        
         commentNumber = commentResult.count
         commentTableView.delegate = self
         commentTableView.register(UINib(nibName: "CommentBottleTableViewCell", bundle: nil), forCellReuseIdentifier: "CommentBottle")
         commentShow(show: false)
         starButton.setBackgroundImage(UIImage(systemName: "suit.heart"), for: .normal)
         starButton.setBackgroundImage(UIImage(systemName: "suit.heart.fill"), for: .selected)
-        selectedDreamStarsLabel.text = String(starNumber)
+        
+        
         selectedDreamCommentLabel.text = String(commentNumber)
     }
     func commentShow(show: Bool){
@@ -67,9 +69,20 @@ class FriendHomeViewController:UIViewController,UITableViewDataSource, UITableVi
         cell.dreamName.text = String(data: result![indexPath.row]["ghostName"] as! Data, encoding: String.Encoding.utf8)
         cell.ghostImageView.image = UIImage(named: String(data: result![indexPath.row]["ghostStyle"] as! Data, encoding: String.Encoding.utf8)!)
         cell.dreamFavorability.text = "\(result![indexPath.row]["favorability"] as! Int)"
+        cell.likedPersonCount.text = "\(result![indexPath.row]["likeCount"] as! Int)"
+
         return cell
     }
+    var dreamSelected = ""
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let dreamName = String(data: result![indexPath.row]["ghostName"] as! Data, encoding: String.Encoding.utf8)
+        dreamSelected = dreamName!
+        starNumber = result![indexPath.row]["likeCount"] as! Int
+        selectedDreamStarsLabel.text = "\(starNumber)"
+        starButton.isSelected = MySql().ifILikedThisDream(friendName: friendName!, dreamName: dreamName!)
+        commentResult = MySql().getDreamComment(friendName: friendName!, dreamName: dreamName!) ?? []
+        selectedDreamCommentLabel.text = "\(commentResult.count)"
+        commentTableView.reloadData()
         commentShow(show: true)
     }
     
@@ -79,10 +92,16 @@ class FriendHomeViewController:UIViewController,UITableViewDataSource, UITableVi
             starNumber += 1
             selectedDreamStarsLabel.text = String(starNumber)
             //update db
+            MySql().LikeFriendDream(friendName: friendName!, dreamName: dreamSelected, likeCount: starNumber)
+            result = Test.userD.getUserPublicDream(user: friendName!)
+            pdreamCollectionView.reloadData()
         }else{
             starNumber -= 1
             selectedDreamStarsLabel.text = String(starNumber)
             //update db
+            MySql().dislikeFriendDream(friendName: friendName!, dreamName: dreamSelected, likeCount: starNumber)
+            result = Test.userD.getUserPublicDream(user: friendName!)
+            pdreamCollectionView.reloadData()
         }
     }
     
@@ -93,8 +112,8 @@ class FriendHomeViewController:UIViewController,UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentBottle", for: indexPath) as! CommentBottleTableViewCell
-        let commentor = String(data: commentResult[indexPath.row]["commentorName"] as! Data, encoding: String.Encoding.utf8)!
-        let comment = String(data: commentResult[indexPath.row]["comment"] as! Data, encoding: String.Encoding.utf8)!
+        let commentor = String(data: commentResult[indexPath.row]["myName"] as! Data, encoding: String.Encoding.utf8)!
+        let comment = String(data: commentResult[indexPath.row]["commentContent"] as! Data, encoding: String.Encoding.utf8)!
         let time = commentResult[indexPath.row]["commentTime"] as! String
 
         let imageName = commentor.getFirstAlphabet() + ".circle"
@@ -104,6 +123,17 @@ class FriendHomeViewController:UIViewController,UITableViewDataSource, UITableVi
         cell.personName.text = commentor
         
         return cell
+    }
+    
+    
+    @IBAction func commentPressed(_ sender: UIButton) {
+        if commentTextField.text != ""{
+            MySql().AddpDreamComment(content: commentTextField.text!, friendName: friendName!, friendDreamName: dreamSelected)
+            commentTextField.text = ""
+            commentResult = MySql().getDreamComment(friendName: friendName!, dreamName: dreamSelected) ?? []
+            selectedDreamCommentLabel.text = "\(commentResult.count)"
+            commentTableView.reloadData()
+        }
     }
     
 }

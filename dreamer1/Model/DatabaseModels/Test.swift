@@ -744,9 +744,11 @@ class Diary
         {
             for j in 0...6
             {
-                let day = (Date() - (i * 7 + j).days).toFormat("YYYY.MM.dd", locale: Locale.current)
-                num1 += getaverageday(day: day)[0]
-                num2 += getaverageday(day: day)[1]
+                let day = (Date() - (i * 7 + j).days).toFormat("YYYY-MM-dd", locale: Locale.current)
+                //num1 += getaverageday(day: day)[0]
+                //num2 += getaverageday(day: day)[1]
+                num1 += MySql().getAverageDay(date: day)[0]
+                num1 += MySql().getAverageDay(date: day)[1]
             }
             data.append(num1/7.0)
             data.append(num2/7.0)

@@ -213,7 +213,7 @@ class DiaryViewController: UIViewController, TokenDelegate, EmotionDelegate {
             present(p, animated: false, completion: nil)
             }
         else{
-            if judge == false{
+            if judge == false{  // 防止一篇日记点两次保存
                 diary = textView.text
                 tokenManager.performRequest()
                 while (ifPointUpdated == false){};
@@ -285,6 +285,7 @@ class DiaryViewController: UIViewController, TokenDelegate, EmotionDelegate {
                             Diary.getDB()
                         }
                     }*/
+                    MySql().addUserEmotion(positive: positivePoint, negative: negativePoint)
                     //返回主界面
                     let time: TimeInterval = 1.5
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time){

@@ -11,7 +11,7 @@ import UIKit
 class NewFriendsViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     
     var queryresult:[[String: Any]] = []
-    
+    var alreadyFriendList:[String]?
     override func viewDidLoad() {
         super.viewDidLoad()
         queryresult = MySql().getRequestsToMe()
@@ -29,15 +29,31 @@ class NewFriendsViewController: UIViewController,UITableViewDelegate, UITableVie
 
         let senderName = String(data: queryresult[indexPath.row]["senderName"] as! Data, encoding: String.Encoding.utf8)!
         let senderWord = String(data: queryresult[indexPath.row]["senderWord"] as! Data, encoding: String.Encoding.utf8)!
-
+        let requestID = queryresult[indexPath.row]["requestID"] as! Int
         let imageName = senderName.getFirstAlphabet()+".circle"
         cell.userPhoto.image = UIImage(systemName: imageName)
         cell.userName.text = senderName
         cell.userWords.text = senderWord
         cell.onButtonTapped = {
-            print("BUtton tapped")
+            //同意一条好友申请
+            if !self.judgeAlreadyFriend(friendName: senderName){
+                MySql().AcceptFriend(friendName: senderName)
+                MySql().deleteRequest(id: requestID)
+            }
+            self.queryresult = MySql().getRequestsToMe()
+            self.newFriendsTableView.reloadData()
         }
         return cell
+    }
+    
+    func judgeAlreadyFriend(friendName:String) -> Bool{
+        var flag = false
+        for friend in alreadyFriendList!{
+            if (friendName == friend){
+                flag = true
+            }
+        }
+        return flag
     }
     
     @IBAction func addAFriend(_ sender: UIBarButtonItem) {

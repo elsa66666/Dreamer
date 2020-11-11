@@ -171,7 +171,10 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
         cell.ghostImageView.image = UIImage(named: getDreamLevelPicture(ghostStyle: ghostS1!, favorability: favorability1))
         cell.dreamName.text = String(data: queryResult[indexPath.row]["ghostName"] as! Data, encoding: String.Encoding.utf8)
         cell.dreamFavorability.text = "\(favorability1)"
-        let isPublic = queryResult[indexPath.row]["ispublic"] as! Int
+        cell.dreamLevel.text = getDreamLevel(favorability: favorability1)
+        
+        let isPublic =  queryResult[indexPath.row]["ispublic"] as! Int
+        cell.publicizeSwitch.isEnabled = false
         if isPublic == 0
         {
             cell.publicizeSwitch.isOn = false
@@ -188,10 +191,18 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         nameSelected = String(data: queryResult[indexPath.row]["ghostName"] as! Data, encoding: String.Encoding.utf8)!
+        let publicizeInt = queryResult[indexPath.row]["ispublic"] as! Int
+        var publicizeBool = false
+        if (publicizeInt == 1){
+            publicizeBool = true
+        }else{
+            publicizeBool = false
+        }
         if trashButton.isSelected == false{
             favor = (queryResult[indexPath.row]["favorability"] as? Int)!
             dreamToAllDiaries.dreamName = nameSelected
             dreamToAllDiaries.dreamFavor = favor!
+            dreamToAllDiaries.publicize = publicizeBool
             let mainBoard:UIStoryboard! = UIStoryboard(name: "Main", bundle: nil)
             let VCMain = mainBoard!.instantiateViewController(withIdentifier: "dreamToDiaries")
             UIApplication.shared.windows[0].rootViewController = VCMain
@@ -216,7 +227,7 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
             return "[level 1]"
         case 101...200:
             return "[level 2]"
-        case 201...300:
+        case 201...400:
             return "[level 3]"
         default:
             return "[level 4]"
@@ -302,7 +313,6 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
     }
     
     @IBOutlet weak var lineChartView: LineChartView!
-    @IBOutlet weak var changeChart: UISegmentedControl!
     @IBOutlet weak var adviceLabel: UILabel!
     @IBOutlet weak var view2: UIView!
     var yPureArray1:[Double] = []
@@ -310,13 +320,13 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
     var positiveDx:Double = 0.0
     var positiveaver:Double = 0.0
     var negativeDx:Double = 0.0
-    let day7 = Date().toFormat("MM.dd", locale: Locale.current)
-    let day6 = (Date() - 1.days).toFormat("MM.dd", locale: Locale.current)
-    let day5 = (Date() - 2.days).toFormat("MM.dd", locale: Locale.current)
-    let day4 = (Date() - 3.days).toFormat("MM.dd", locale: Locale.current)
-    let day3 = (Date() - 4.days).toFormat("MM.dd", locale: Locale.current)
-    let day2 = (Date() - 5.days).toFormat("MM.dd", locale: Locale.current)
-    let day1 = (Date() - 6.days).toFormat("MM.dd", locale: Locale.current)
+    let day7 = Date().toFormat("MM-dd", locale: Locale.current)
+    let day6 = (Date() - 1.days).toFormat("MM-dd", locale: Locale.current)
+    let day5 = (Date() - 2.days).toFormat("MM-dd", locale: Locale.current)
+    let day4 = (Date() - 3.days).toFormat("MM-dd", locale: Locale.current)
+    let day3 = (Date() - 4.days).toFormat("MM-dd", locale: Locale.current)
+    let day2 = (Date() - 5.days).toFormat("MM-dd", locale: Locale.current)
+    let day1 = (Date() - 6.days).toFormat("MM-dd", locale: Locale.current)
     let year = Date().toFormat("YYYY", locale: Locale.current)
     let encourage1 = [
         "努力就是当好运来临的时候，我觉得我值得。",
@@ -352,29 +362,6 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
         "\"那么，该倚靠什么呢?\"   \"我想，只有自己曾经努力过的事实。\"",
         "你既是狂澜，也是无人能扑灭的火花。"
     ]
-    
-    
-    @IBAction func changeDMY(_ sender: UISegmentedControl) {
-        if changeChart.selectedSegmentIndex == 0{
-            initDailyData()
-            lineChartView.delegate = self
-            showChart()
-            setDailyData()
-            calculateDaily()
-        }else if changeChart.selectedSegmentIndex == 1{
-            initMonthlyData()
-            lineChartView.delegate = self
-            showChart()
-            setMonthlyData()
-            calculateMonthly()
-        }else{
-            initYearlyData()
-            lineChartView.delegate = self
-            showChart()
-            setYearlyData()
-            calculateYearly()
-        }
-    }
     
     // MARK: -calculate
     func calculateDaily()
@@ -441,90 +428,36 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
     func initDailyData(){
         yPureArray1 = []
         yPureArray2 = []
-        let data1 = Diary.getaverageday(day: year + "." + day1)
-        //let data1 = [95.0,5.0]
+        let data1 = MySql().getAverageDay(date:year + "-" + day1)
         yPureArray1.append(data1[0])
         yPureArray2.append(data1[1])
-        let data2 = Diary.getaverageday(day: year + "." + day2)
-        //let data2 = [90.0,10.0]
+        
+        let data2 = MySql().getAverageDay(date: (year + "-" + day2))
         yPureArray1.append(data2[0])
         yPureArray2.append(data2[1])
-        let data3 = Diary.getaverageday(day: year + "." + day3)
-        //let data3 = [70.0,30.0]
+        
+        let data3 = MySql().getAverageDay(date:(year + "-" + day3))
         yPureArray1.append(data3[0])
         yPureArray2.append(data3[1])
-        let data4 = Diary.getaverageday(day: year + "." + day4)
-        //let data4 = [30.0,70.0]
+        
+        let data4 = MySql().getAverageDay(date: (year + "-" + day4))
         yPureArray1.append(data4[0])
         yPureArray2.append(data4[1])
-        let data5 = Diary.getaverageday(day: year + "." + day5)
-        //let data5 = [50.0,50.0]
+        
+        let data5 = MySql().getAverageDay(date:(year + "-" + day5))
         yPureArray1.append(data5[0])
         yPureArray2.append(data5[1])
-        let data6 = Diary.getaverageday(day: year + "." + day6)
-        //let data6 = [67.0,33.0]
+        
+        let data6 = MySql().getAverageDay(date: (year + "-" + day6))
         yPureArray1.append(data6[0])
         yPureArray2.append(data6[1])
-        let data7 = Diary.getaverageday(day: year + "." + day7)
-        //let data7 = [82.0,18.0]
+        
+        let data7 = MySql().getAverageDay(date: (year + "-" + day7))
         yPureArray1.append(data7[0])
         yPureArray2.append(data7[1])
     }
-    func initMonthlyData()
-    {
-        let day = Date().toFormat("YYYY.MM.dd", locale: Locale.current)
-        let data = Diary.getaverageweek(day: day)
-        //let data = [90.0,10.0,70.0,30.0,30.0,70.0,95.0,5.0,50.0,50.0,67.0,33.0,82.0,18.0]
-        for i in 0...13
-        {
-            if i % 2 == 0
-            {
-                yPureArray1.append(data[i])
-            }
-            else
-            {
-                yPureArray2.append(data[i])
-            }
-        }
-        //print(yPureArray1,yPureArray2)
-    }
     
-    func initYearlyData()
-    {
-        let month12 = year + ".12"
-        let month11 = year + ".11"
-        let month10 = year + ".10"
-        let month9 = year + ".09"
-        let month8 = year + ".08"
-        let month7 = year + ".07"
-        let month6 = year + ".06"
-        let month5 = year + ".05"
-        let month4 = year + ".04"
-        let month3 = year + ".03"
-        let month2 = year + ".02"
-        let month1 = year + ".01"
-        let month = [month12, month11, month10, month9, month8, month7, month6, month5, month4, month3, month2, month1]
-        for i in 0...11
-        {
-            let data = Diary.getaveragemonth(year: month[11 - i])
-            yPureArray1.append(data[0])
-            yPureArray2.append(data[1])
-        }
-        /*
-        for i in 0...9
-        {
-            let data = Diary.getaveragemonth(year: month[11 - i])
-            yPureArray1.append(data[0])
-            yPureArray2.append(data[1])
-        }
-        for _ in 10...11
-        {
-            let data = [0.0,0.0]
-            yPureArray1.append(data[0])
-            yPureArray2.append(data[1])
-        }*/
-    }
-    
+  
     // MARK: -show chart
     
     func showChart(){
@@ -633,103 +566,6 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
         lineChartView.data = data
         lineChartView.animate(xAxisDuration: 0.5)  //设置动画时间
     }
-    func setMonthlyData(){
-        // MARK: - x轴数据数组
-        let xValues = ["week1", "week2", "week3", "week4", "week5", "week6", "week7"]
-        
-        lineChartView.xAxis.valueFormatter = KMChartAxisValueFormatter.init(xValues as NSArray)
-        
-        let leftValueFormatter = NumberFormatter()  //自定义格式
-        leftValueFormatter.positiveSuffix = "%"  //数字后缀单位
-        lineChartView.leftAxis.valueFormatter = DefaultAxisValueFormatter.init(formatter: leftValueFormatter)
-        // MARK: -  y轴数据数组
-        //positive数据数组
-        var yDataArray1 = [ChartDataEntry]()
-        
-        for i in 0...xValues.count-1 {
-            let entry = ChartDataEntry.init(x: Double(i), y: yPureArray1[i])
-            yDataArray1.append(entry)
-        }
-        let math1 = Math()
-        positiveDx = math1.getSquaredDistance(datas: yPureArray1, average: math1.getAverage(datas: yPureArray1))
-        positiveaver = math1.getAverage(datas: yPureArray1)
-        //positive样式设置
-        let set1 = LineChartDataSet.init(entries: yDataArray1, label: "positive")
-        set1.colors = [#colorLiteral(red: 0.4941176471, green: 0.3607843137, blue: 0.6156862745, alpha: 1)]
-        set1.drawCirclesEnabled = false //是否绘制转折点
-        set1.lineWidth = 1
-        set1.mode = .horizontalBezier  //设置曲线是否平滑
-        
-        //negative数据数组
-        var yDataArray2 = [ChartDataEntry]()
-        
-        for i in 0...(xValues.count-1) {
-            let entry = ChartDataEntry.init(x: Double(i), y: yPureArray2[i])
-            yDataArray2.append(entry);
-        }
-        let math2 = Math()
-        negativeDx = math2.getSquaredDistance(datas: yPureArray2, average: math2.getAverage(datas: yPureArray2))
-        //negative数据样式
-        let set2 = LineChartDataSet.init(entries: yDataArray2, label: "negative")
-        set2.colors = [#colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)]
-        set2.drawCirclesEnabled = false
-        set2.lineWidth = 1
-        set2.mode = .horizontalBezier  //设置曲线是否平滑
-        
-        let data = LineChartData.init(dataSets: [set1,set2])
-        lineChartView.data = data
-        lineChartView.animate(xAxisDuration: 0.5)  //设置动画时间
-    }
-    func setYearlyData(){
-        // MARK: - x轴数据数组
-        let xValues = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Octo", "Nov", "Dec"]
-        
-        lineChartView.xAxis.valueFormatter = KMChartAxisValueFormatter.init(xValues as NSArray)
-        
-        let leftValueFormatter = NumberFormatter()  //自定义格式
-        leftValueFormatter.positiveSuffix = "%"  //数字后缀单位
-        lineChartView.leftAxis.valueFormatter = DefaultAxisValueFormatter.init(formatter: leftValueFormatter)
-        // MARK: -  y轴数据数组
-        //positive数据数组
-        var yDataArray1 = [ChartDataEntry]()
-        
-        for i in 0...xValues.count-1 {
-            let entry = ChartDataEntry.init(x: Double(i), y: yPureArray1[i])
-            yDataArray1.append(entry)
-        }
-        let math1 = Math()
-        positiveDx = math1.getSquaredDistance(datas: yPureArray1, average: math1.getAverage(datas: yPureArray1))
-        positiveaver = math1.getAverage(datas: yPureArray1)
-        //positive样式设置
-        let set1 = LineChartDataSet.init(entries: yDataArray1, label: "positive")
-        set1.colors = [#colorLiteral(red: 0.4941176471, green: 0.3607843137, blue: 0.6156862745, alpha: 1)]
-        set1.drawCirclesEnabled = false //是否绘制转折点
-        set1.lineWidth = 1
-        set1.mode = .horizontalBezier  //设置曲线是否平滑
-        
-        //negative数据数组
-        var yDataArray2 = [ChartDataEntry]()
-        
-        for i in 0...(xValues.count-1) {
-            let entry = ChartDataEntry.init(x: Double(i), y: yPureArray2[i])
-            yDataArray2.append(entry);
-        }
-        let math2 = Math()
-        negativeDx = math2.getSquaredDistance(datas: yPureArray2, average: math2.getAverage(datas: yPureArray2))
-        //negative数据样式
-        let set2 = LineChartDataSet.init(entries: yDataArray2, label: "negative")
-        set2.colors = [#colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)]
-        set2.drawCirclesEnabled = false
-        set2.lineWidth = 1
-        set2.mode = .horizontalBezier  //设置曲线是否平滑
-        
-        let data = LineChartData.init(dataSets: [set1,set2])
-        lineChartView.data = data
-        lineChartView.animate(xAxisDuration: 0.5)  //设置动画时间
-        lineChartView.setVisibleXRangeMaximum(6)
-    }
-    
-    
     
     // MARK: - 数据格式化
     func showMarkerView(value:String)

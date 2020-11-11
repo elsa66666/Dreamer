@@ -26,17 +26,17 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="这道题我觉得应该来十遍" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kl-nN-Ju6">
-                        <rect key="frame" x="20" y="58" width="180" height="20"/>
+                        <rect key="frame" x="22" y="58" width="157.5" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="WTF-Nf-a5f"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="9kl-nN-Ju6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="cCx-g9-3vy"/>
+                    <constraint firstItem="9kl-nN-Ju6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="22" id="cCx-g9-3vy"/>
                     <constraint firstAttribute="bottom" secondItem="9kl-nN-Ju6" secondAttribute="bottom" constant="20" id="o8F-go-RhF"/>
                     <constraint firstItem="wo2-gN-bpO" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-20" id="sPd-Vq-iR6"/>
                     <constraint firstItem="wo2-gN-bpO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="ztq-bd-9A9"/>

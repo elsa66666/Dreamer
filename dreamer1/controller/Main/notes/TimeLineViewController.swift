@@ -24,8 +24,6 @@ class TimeLineViewController : UITableViewController {
 
     var style = 0
     func data(){
-        let sqlite = SQliteManager.sharedInstance
-        if !sqlite.openDB() { return }
         queryresult = MySql().getAllNotes()
     }
     

@@ -10,7 +10,7 @@ import UIKit
 import OHMySQL
 class AllDiariesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
 
-    
+    @IBOutlet weak var publicizeSwitch: UISwitch!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var selectedDream: UINavigationItem!
     
@@ -27,6 +27,7 @@ class AllDiariesViewController: UIViewController, UICollectionViewDataSource, UI
         connectTitle = dreamToAllDiaries.dreamName
         ghostName = dreamToAllDiaries.dreamName
         favor = dreamToAllDiaries.dreamFavor
+        publicizeSwitch.isOn = dreamToAllDiaries.publicize
         trashButton.image = UIImage(systemName: "trash")
         selectedDream.title = connectTitle
         Diary.ghostName = connectTitle!
@@ -34,6 +35,9 @@ class AllDiariesViewController: UIViewController, UICollectionViewDataSource, UI
         response = Diary.getAllDiariesByGhostName(ghostName: ghostName)
     }
     
+    @IBAction func publicize(_ sender: Any) {
+        MySql().changeDreamPublicize(ghostName: dreamToAllDiaries.dreamName)
+    }
     @IBAction func toHome(_ sender: UIBarButtonItem) {
         let mainBoard:UIStoryboard! = UIStoryboard(name: "Main", bundle: nil)
         let VCMain = mainBoard!.instantiateViewController(withIdentifier: "vcMain")

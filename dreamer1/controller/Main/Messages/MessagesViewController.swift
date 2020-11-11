@@ -13,6 +13,7 @@ class MessagesViewController: UIViewController,UITableViewDelegate, UITableViewD
     var queryresult:[[String: Any]] = []
     @IBOutlet weak var messageTableView: UITableView!
     var connectFriendName:String?
+    var connectFriendList:[String]?
     override func viewDidLoad() {
         super.viewDidLoad()
         queryresult = MySql().getChatInShort()
@@ -52,6 +53,7 @@ class MessagesViewController: UIViewController,UITableViewDelegate, UITableViewD
         cell.friendImageView.image = UIImage(systemName: imageName)
         cell.friendNameLabel.text = friendName
         cell.friendMessageLabel.text = messageContent
+        connectFriendList?.append(friendName)
         return cell
     }
     
@@ -69,7 +71,15 @@ class MessagesViewController: UIViewController,UITableViewDelegate, UITableViewD
         if segue.identifier == "toMessageDetail"{
             let destinationVC = segue.destination as! MessageDetailViewController
             destinationVC.friendName = connectFriendName!
+        }else if segue.identifier == "toNFriends"{
+            let destinationVC = segue.destination as! NewFriendsViewController
+            destinationVC.alreadyFriendList = connectFriendList
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        queryresult = MySql().getChatInShort()
+        messageTableView.reloadData()
     }
 
 }

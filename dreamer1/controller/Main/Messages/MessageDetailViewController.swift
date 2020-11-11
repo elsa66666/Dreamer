@@ -12,6 +12,7 @@ class MessageDetailViewController: UIViewController,UITableViewDelegate, UITable
 
     var queryresult:[[String: Any]] = []
     var friendName:String?
+    @IBOutlet weak var messageTextField: UITextField!
     
     @IBOutlet weak var FriendName: UINavigationItem!
     @IBOutlet weak var MessageDetailTableView: UITableView!
@@ -19,7 +20,7 @@ class MessageDetailViewController: UIViewController,UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         FriendName.title = friendName
-        queryresult = MySql().getChatMessageInDetail()
+        queryresult = MySql().getChatMessageInDetail(friendName: friendName!)
         MessageDetailTableView.delegate = self
         MessageDetailTableView.register(UINib(nibName: "MessageDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "messageDetailCell")
     }
@@ -57,5 +58,20 @@ class MessageDetailViewController: UIViewController,UITableViewDelegate, UITable
             let destinationVC = segue.destination as! FriendHomeViewController
             destinationVC.friendName = friendName
         }
+    }
+    
+    @IBAction func onSendPressed(_ sender: UIButton) {
+        if (messageTextField.text != ""){
+            MySql().AddMessage(receiver: friendName!, content: messageTextField.text!)
+            queryresult = MySql().getChatMessageInDetail(friendName: friendName!)
+            MessageDetailTableView.reloadData()
+            messageTextField.text = ""
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        let indexPath = queryresult.count - 1
+        let newestMessage = String(data: queryresult[indexPath]["content"] as! Data, encoding: String.Encoding.utf8)!
+        MySql().ChangeMessageIndexContent(friendName: friendName!, content: newestMessage)
     }
 }
