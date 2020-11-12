@@ -134,8 +134,13 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
         line1.isHidden = false
         line2.isHidden = true
         line3.isHidden = true
+        //userName = Test.userD.LoginUserName()
+        //ueryResult = Test.userD.getAllDreamInfo(user: userName)
     }
     override func viewWillAppear(_ animated: Bool) {
+        userName = Test.userD.LoginUserName()
+        print(userName)
+        queryResult = Test.userD.getAllDreamInfo(user: userName)
         initView1()
         detailedCollectionView.reloadData()
     }

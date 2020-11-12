@@ -33,6 +33,7 @@ class BubbleViewController: UIViewController {
         bubbleLabel3.text = bubbleLabelText3
         bubbleLabel4.text = bubbleLabelText4
         contentArray = MySql().getAllNoteContentForBubble()
+        bubbleShow()
     }
     
     @IBAction func onBubbleMachinePressed(_ sender: UIButton) {

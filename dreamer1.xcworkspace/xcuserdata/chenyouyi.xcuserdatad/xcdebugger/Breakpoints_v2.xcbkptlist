@@ -266,8 +266,8 @@
             filePath = "dreamer1/Model/DatabaseModels/Test.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "490"
-            endingLineNumber = "490"
+            startingLineNumber = "491"
+            endingLineNumber = "491"
             landmarkName = "getId(name:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -282,8 +282,8 @@
             filePath = "dreamer1/Model/DatabaseModels/Test.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "489"
-            endingLineNumber = "489"
+            startingLineNumber = "490"
+            endingLineNumber = "490"
             landmarkName = "getId(name:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -314,8 +314,8 @@
             filePath = "dreamer1/Model/DatabaseModels/Test.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "LoginSuccess(id:name:style:user:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -330,8 +330,8 @@
             filePath = "dreamer1/Model/DatabaseModels/Test.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "LoginSuccess(id:name:style:user:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -346,10 +346,10 @@
             filePath = "dreamer1/Model/DatabaseModels/Test.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
-            landmarkName = "Test"
-            landmarkType = "3">
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "LoginSuccess(id:name:style:user:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -378,8 +378,8 @@
             filePath = "dreamer1/Model/DatabaseModels/Test.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "502"
-            endingLineNumber = "502"
+            startingLineNumber = "503"
+            endingLineNumber = "503"
             landmarkName = "getpicID(name:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -442,9 +442,9 @@
             filePath = "dreamer1/Model/DatabaseModels/MySql.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "468"
-            endingLineNumber = "468"
-            landmarkName = "getAllDreamStyle(user:)"
+            startingLineNumber = "448"
+            endingLineNumber = "448"
+            landmarkName = "getAllDreamFavorSum()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -458,9 +458,9 @@
             filePath = "dreamer1/controller/AddDreams/toDiary/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "796"
-            endingLineNumber = "796"
-            landmarkName = "onChangeButtonPressed(_:)"
+            startingLineNumber = "801"
+            endingLineNumber = "801"
+            landmarkName = "whetherLiftTheGhost(rate:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -512,7 +512,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "15625259-8272-436A-B237-02D4E42C19F5 - 6701a7b668c44de7"
+                  uuid = "15625259-8272-436A-B237-02D4E42C19F5 - 7e56f1ca6a2e8d58"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -527,7 +527,7 @@
                   offsetFromSymbolStart = "1651">
                </Location>
                <Location
-                  uuid = "15625259-8272-436A-B237-02D4E42C19F5 - acafe3cee95aa7c5"
+                  uuid = "15625259-8272-436A-B237-02D4E42C19F5 - b5f8b5b2ebb06734"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -608,7 +608,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "1CDE68D0-E633-40CA-82D3-7635149CCF77 - 77100b05544f5815"
+                  uuid = "1CDE68D0-E633-40CA-82D3-7635149CCF77 - 6e475d7956a5e696"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -623,7 +623,7 @@
                   offsetFromSymbolStart = "373">
                </Location>
                <Location
-                  uuid = "1CDE68D0-E633-40CA-82D3-7635149CCF77 - b2947a6bedfaaa01"
+                  uuid = "1CDE68D0-E633-40CA-82D3-7635149CCF77 - abc32c17ef1014c4"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -659,22 +659,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BAC50FBA-FCFD-4601-AEB9-D53FEACD25A9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "dreamer1/controller/SignUp+LogIn/LoginViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "loginButtonPressed(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "01316D8B-8E80-4360-AB01-48FEB08162A2"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -685,6 +669,22 @@
             startingLineNumber = "260"
             endingLineNumber = "260"
             landmarkName = "LoginSuccess(id:name:style:user:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "79EC9BB3-0A4A-4E7F-BBDD-882263C372EF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "dreamer1/controller/AddDreams/toDiary/MainViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "631"
+            endingLineNumber = "631"
+            landmarkName = "initView3()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

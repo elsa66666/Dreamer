@@ -8,6 +8,7 @@ class Test {
     static var jumpDia: Bool = false
     static var jumpSta: Bool = false
     static var userD = MySql()
+    static var name = ""
     
 // MARK: - register
     static func initUserDB() {

@@ -321,27 +321,7 @@ class MySql
     // userlogin：返回当前登陆的用户名字
     func LoginUserName() -> String
     {
-        Connect()
-        var response: [[String:Any]]
-        var name: String = ""
-        let queryresult = OHMySQLQueryRequestFactory.select("userlogin", condition: nil)
-        if checkConnectStatus()
-        {
-            do
-            {
-                response = try self.context!.executeQueryRequestAndFetchResult(queryresult)
-                if response.count != 0
-                {
-                    for row in response {
-                        name = String(data: row["name"] as! Data, encoding: String.Encoding.utf8)!
-                    }
-                }
-            }
-            catch {
-                 print("MySQL_Error:\(error)")
-            }
-        }
-        return name
+        return Test.name
     }
     //登录的user的ID
     func LoginUserID() -> Int

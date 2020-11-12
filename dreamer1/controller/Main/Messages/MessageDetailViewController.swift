@@ -71,7 +71,11 @@ class MessageDetailViewController: UIViewController,UITableViewDelegate, UITable
     
     override func viewWillDisappear(_ animated: Bool) {
         let indexPath = queryresult.count - 1
-        let newestMessage = String(data: queryresult[indexPath]["content"] as! Data, encoding: String.Encoding.utf8)!
-        MySql().ChangeMessageIndexContent(friendName: friendName!, content: newestMessage)
+        if queryresult.count != 0
+        {
+            let newestMessage = String(data: queryresult[indexPath]["content"] as! Data, encoding: String.Encoding.utf8)!
+            MySql().ChangeMessageIndexContent(friendName: friendName!, content: newestMessage)
+        }
+        
     }
 }

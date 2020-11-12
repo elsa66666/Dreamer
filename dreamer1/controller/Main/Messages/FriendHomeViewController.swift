@@ -38,8 +38,7 @@ class FriendHomeViewController:UIViewController,UITableViewDataSource, UITableVi
         commentShow(show: false)
         starButton.setBackgroundImage(UIImage(systemName: "suit.heart"), for: .normal)
         starButton.setBackgroundImage(UIImage(systemName: "suit.heart.fill"), for: .selected)
-        
-        
+        initComment()
         selectedDreamCommentLabel.text = String(commentNumber)
     }
     func commentShow(show: Bool){
@@ -64,13 +63,19 @@ class FriendHomeViewController:UIViewController,UITableViewDataSource, UITableVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.height*0.75*5/3, height: collectionView.frame.height*0.6)
     }
+    private func convertDateString(string: String) -> String{
+        let date = Util.stringConvertDate(string: string)
+        let tempString = Util.dateConvertString(date: date)
+        return tempString
+    }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pdreamCell", for: indexPath) as! PublicDreamCollectionViewCell
         cell.dreamName.text = String(data: result![indexPath.row]["ghostName"] as! Data, encoding: String.Encoding.utf8)
         cell.ghostImageView.image = UIImage(named: String(data: result![indexPath.row]["ghostStyle"] as! Data, encoding: String.Encoding.utf8)!)
         cell.dreamFavorability.text = "\(result![indexPath.row]["favorability"] as! Int)"
         cell.likedPersonCount.text = "\(result![indexPath.row]["likeCount"] as! Int)"
-
+        let generateDate = result![indexPath.row]["createDate"] as! String
+        cell.generatedDateLabel.text = convertDateString(string: generateDate)
         return cell
     }
     var dreamSelected = ""
@@ -84,6 +89,22 @@ class FriendHomeViewController:UIViewController,UITableViewDataSource, UITableVi
         selectedDreamCommentLabel.text = "\(commentResult.count)"
         commentTableView.reloadData()
         commentShow(show: true)
+    }
+    
+    func initComment()
+    {
+        if result?.count != 0
+        {
+            let dreamName = String(data: result![0]["ghostName"] as! Data, encoding: String.Encoding.utf8)
+            dreamSelected = dreamName!
+            starNumber = result![0]["likeCount"] as! Int
+            selectedDreamStarsLabel.text = "\(starNumber)"
+            starButton.isSelected = MySql().ifILikedThisDream(friendName: friendName!, dreamName: dreamName!)
+            commentResult = MySql().getDreamComment(friendName: friendName!, dreamName: dreamName!) ?? []
+            selectedDreamCommentLabel.text = "\(commentResult.count)"
+            commentTableView.reloadData()
+            commentShow(show: true)
+        }
     }
     
     @IBAction func starButtonPressed(_ sender: UIButton) {

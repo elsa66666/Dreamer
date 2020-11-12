@@ -44,6 +44,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
             if flag == 2{  //登录成功
                 Test.userD.LoginSuccess(id:id, name:name.text!.trimmingCharacters(in: .whitespaces),style: style, user: name.text!.trimmingCharacters(in: .whitespaces))
+                Test.name = name.text!.trimmingCharacters(in: .whitespaces)
                 //Diary.Drop()
                 Diary.initDB()
                 let mainBoard:UIStoryboard! = UIStoryboard(name: "Main", bundle: nil)
